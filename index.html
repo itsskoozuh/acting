@@ -19,7 +19,6 @@
    overflow: hidden;
  }
 
- /* Blur overlay that covers entire screen initially */
  #blurOverlay {
    position: fixed;
    top: 0;
@@ -357,7 +356,6 @@
 
 <body>
 
-<!-- Blur overlay -->
 <div id="blurOverlay">click to continue</div>
 
  <div class="card-wrapper" id="cardWrapper">
@@ -365,7 +363,7 @@
      <img src="assets/pfp.png" alt="pfp" class="profile-pic" id="profilePic" />
      <div style="display: flex; align-items: center;">
        <div class="name" id="profileName">
-         <span class="prod-gradient">prod</span> @skoozuh
+         prod <span class="prod-gradient">@skoozuh</span>
        </div>
        <div class="badge-container">
          <img src="assets/crownw.png" alt="owner" />
@@ -378,11 +376,7 @@
      </div>
 
      <div class="presence-card">
-       <img
-         class="avatar"
-         src="https://media.discordapp.net/attachments/1401010039681978381/1401023191757099170/pfp.png?ex=688ec406&is=688d7286&hm=f481589859fb09df918d82265f354b78dd08bedf1fa7e27f78a4c6ca467dcde2&format=webp&quality=lossless&width=1408&height=1408&"
-         alt="Avatar"
-       />
+       <img class="avatar" src="https://media.discordapp.net/attachments/1401010039681978381/1401023191757099170/pfp.png?ex=688ec406&is=688d7286&hm=f481589859fb09df918d82265f354b78dd08bedf1fa7e27f78a4c6ca467dcde2&format=webp&quality=lossless&width=1408&height=1408&" alt="Avatar" />
        <div class="details">
          <div class="username">
            skoozuh
@@ -397,11 +391,7 @@
          <div class="track-info">
            <div style="display: flex; align-items: center; gap: 10px;">
              <span id="track-title">Switchlanes By - LUCKI</span>
-             <span
-               id="track-duration"
-               style="font-size: 13px; color: rgba(255, 255, 255, 0.5);"
-               >0:00</span
-             >
+             <span id="track-duration" style="font-size: 13px; color: rgba(255, 255, 255, 0.5);">0:00</span>
            </div>
            <span id="track-artist" class="artist-name">LUCKI</span>
          </div>
@@ -414,12 +404,7 @@
      </div>
 
      <div class="social-logos">
-       <a
-         href="https://instagram.com/deadbeforenight"
-         target="_blank"
-         rel="noopener noreferrer"
-         aria-label="Instagram"
-       >
+       <a href="https://instagram.com/deadbeforenight" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
          <img src="assets/iglogo.png" alt="Instagram" class="social-icon" />
        </a>
      </div>
@@ -434,13 +419,10 @@
    const rect = wrapper.getBoundingClientRect();
    const x = e.clientX - rect.left;
    const y = e.clientY - rect.top;
-
    const centerX = rect.width / 2;
    const centerY = rect.height / 2;
-
    const rotateX = ((y - centerY) / centerY) * 8;
    const rotateY = ((x - centerX) / centerX) * 8;
-
    wrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
  });
 
@@ -448,7 +430,6 @@
    wrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
  });
 
- // Hide overlay on click
  blurOverlay.addEventListener('click', () => {
    blurOverlay.classList.add('hidden');
  });
@@ -505,10 +486,8 @@
    if (!isNaN(audio.duration)) {
      seekBar.max = audio.duration;
      seekBar.value = audio.currentTime;
-
      const fillPercent = (audio.currentTime / audio.duration) * 100;
      seekBar.style.background = `linear-gradient(to right, rgba(255, 255, 255, 0.267) ${fillPercent}%, rgba(255, 255, 255, 0.165) ${fillPercent}%)`;
-
      trackDuration.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
    }
  });
