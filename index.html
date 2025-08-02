@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skoozuh</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
   <style>
     * {
       margin: 0;
@@ -14,166 +14,137 @@
     }
 
     body {
-      background-color: #0d0d0d;
+      background-color: #0f0f0f;
       color: white;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       min-height: 100vh;
+      padding: 1rem;
     }
 
-    .container {
+    .card {
       background-color: #1a1a1a;
-      border-radius: 16px;
-      padding: 30px;
-      width: 360px;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 400px;
+      width: 100%;
       text-align: center;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
 
     .pfp {
       width: 100px;
       height: 100px;
-      border-radius: 50%;
+      border-radius: 100%;
       object-fit: cover;
-      border: 3px solid #444;
-      margin-bottom: 20px;
+      margin-bottom: 1rem;
     }
 
     .username {
-      font-size: 28px;
-      font-weight: 800;
-      background: linear-gradient(270deg, #1a73e8, #3a4edb);
-      background-size: 400% 400%;
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(270deg, #3a5bff, #1e3a8a);
+      background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: waveblue 6s ease infinite;
+      animation: wavepulse 5s ease-in-out infinite;
+      margin-bottom: 0.25rem;
     }
 
-    @keyframes waveblue {
+    @keyframes wavepulse {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
     .badges {
-      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 1rem 0;
     }
 
-    .badge {
+    .badges img {
       width: 32px;
       height: 32px;
-      margin: 0 5px;
+      transition: transform 0.2s;
     }
 
-    .badge:hover::after {
-      content: attr(alt);
-      position: absolute;
-      font-size: 12px;
-      background: #333;
-      color: #fff;
-      padding: 4px 6px;
-      border-radius: 6px;
-      transform: translateY(-40px);
+    .badges img:hover {
+      transform: scale(1.1);
     }
 
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .link-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      font-weight: bold;
-      background-color: #262626;
-      color: white;
-      text-decoration: none;
-      transition: background 0.3s;
-    }
-
-    .link-btn:hover {
-      background-color: #333;
+    .badges img[title] {
+      cursor: help;
     }
 
     .music {
-      background-color: #121212;
-      border-radius: 10px;
-      padding: 14px 16px;
-      margin: 20px 0;
+      background-color: #2a2a2a;
+      padding: 1rem;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
     }
 
     .music-title {
-      font-size: 16px;
       font-weight: 600;
     }
 
     .music-artist {
-      font-size: 14px;
-      font-weight: 600;
-      background: linear-gradient(90deg, #9c27b0, #d500f9);
-      background-size: 300% 300%;
+      background: linear-gradient(270deg, #8b5cf6, #a855f7);
+      background-size: 200% 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: wavepurple 5s ease infinite;
+      animation: wavepulse 4s ease-in-out infinite;
+      font-size: 0.85rem;
     }
 
-    @keyframes wavepurple {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .bottom-links {
+    .socials {
       display: flex;
       justify-content: center;
-      gap: 16px;
-      margin-top: 30px;
+      gap: 2rem;
+      margin-top: 2rem;
     }
 
-    .bottom-links img {
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
-      transition: opacity 0.2s ease;
+    .socials a img {
+      width: 32px;
+      height: 32px;
+      transition: opacity 0.2s;
     }
 
-    .bottom-links img:hover {
+    .socials a:hover img {
       opacity: 0.7;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="card">
     <img src="assets/pfp.png" alt="Profile Picture" class="pfp" />
     <div class="username">skoozuh</div>
 
     <div class="badges">
-      <img src="assets/crownw.png" class="badge" alt="owner" />
-      <img src="assets/trophy.png" class="badge" alt="champion" />
-      <img src="assets/spider.png" class="badge" alt="stealth" />
+      <img src="assets/crownw.png" title="Owner" />
+      <img src="assets/trophy.png" title="Champion" />
+      <img src="assets/spider.png" title="Stealth" />
     </div>
 
     <div class="music">
       <div class="music-title">Switchlanes</div>
       <div class="music-artist">LUCKI</div>
-      <audio src="assets/lucki.mp3" controls style="width: 100%; margin-top: 10px;"></audio>
+      <audio controls style="width: 100%; margin-top: 0.5rem;">
+        <source src="assets/lucki.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
     </div>
 
-    <div class="links">
-      <a href="https://guns.lol/wreak" class="link-btn">guns.lol</a>
-      <a href="https://instagram.com/skoozuh" class="link-btn">instagram</a>
-    </div>
-
-    <div class="bottom-links">
-      <a href="https://guns.lol/wreak"><img src="assets/guns.png" alt="guns"></a>
-      <a href="https://instagram.com/skoozuh"><img src="assets/iglogo.png" alt="instagram"></a>
+    <div class="socials">
+      <a href="https://guns.lol/wreak" target="_blank">
+        <img src="assets/guns.png" alt="guns.lol" />
+      </a>
+      <a href="https://instagram.com/" target="_blank">
+        <img src="assets/iglogo.png" alt="Instagram" />
+      </a>
     </div>
   </div>
 </body>
