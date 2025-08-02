@@ -43,7 +43,7 @@
       font-size: 28px;
       font-weight: 600;
       margin-bottom: 10px;
-      background: linear-gradient(270deg, #333, #555, #444);
+      background: linear-gradient(270deg, #2e5cb8, #426bdb, #29457a);
       background-size: 600% 600%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -109,26 +109,27 @@
       background: rgba(255, 255, 255, 0.35);
       width: 0%;
     }
-    .socials {
+    .links {
       display: flex;
-      justify-content: center;
-      gap: 20px;
+      flex-direction: column;
+      gap: 12px;
       margin-top: 32px;
     }
-    .socials a {
-      display: inline-block;
-      width: 32px;
-      height: 32px;
+    .links a {
+      text-decoration: none;
+      color: #ffffff;
+      background: #292929;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      text-transform: lowercase;
+      transition: background 0.2s ease, border 0.2s ease;
     }
-    .socials img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      filter: brightness(0.9);
-      transition: filter 0.2s ease;
-    }
-    .socials img:hover {
-      filter: brightness(1.2);
+    .links a:hover {
+      background: #3b3b3b;
+      border-color: #444;
     }
     .footer {
       margin-top: 20px;
@@ -161,9 +162,9 @@
       <audio id="audio" src="assets/lucki.mp3"></audio>
     </div>
 
-    <div class="socials">
-      <a href="https://guns.lol/wreak" target="_blank"><img src="assets/gunslol.png" alt="guns.lol"></a>
-      <a href="https://instagram.com/deadbeforenight" target="_blank"><img src="assets/instagram.png" alt="Instagram"></a>
+    <div class="links">
+      <a href="https://guns.lol/wreak" target="_blank">guns.lol/wreak</a>
+      <a href="https://instagram.com/deadbeforenight" target="_blank">instagram.com/deadbeforenight</a>
     </div>
 
     <div class="footer">© 2025 skoozuh</div>
