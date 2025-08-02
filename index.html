@@ -42,8 +42,17 @@
     .username {
       font-size: 26px;
       font-weight: 600;
-      color: #ffffff;
       margin-bottom: 10px;
+      background: linear-gradient(-45deg, #333, #111, #333);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulseGradient 4s ease infinite;
+    }
+    @keyframes pulseGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     .badges {
       display: flex;
