@@ -14,102 +14,102 @@
     }
     body {
       min-height: 100vh;
-      background: #0b0b0c;
       font-family: 'Poppins', sans-serif;
       color: #ffffff;
+      background: linear-gradient(135deg, #0a0a0a, #0f1e2e);
+      animation: gradientShift 15s ease infinite;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 40px;
+      padding: 40px 20px;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     .container {
       display: flex;
       flex-direction: row;
       gap: 40px;
-      max-width: 1000px;
-      width: 100%;
-      background: #131316;
+      background: #121212;
       padding: 30px;
       border-radius: 16px;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
-      align-items: center;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
+      max-width: 900px;
+      width: 100%;
     }
     .left {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
-      flex: 1;
+      width: 40%;
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 60%;
     }
     .avatar {
-      width: 120px;
-      height: 120px;
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid #2e2e2e;
+      margin-bottom: 16px;
+      border: 3px solid rgba(255, 255, 255, 0.05);
     }
     .username {
       font-size: 32px;
-      font-weight: 700;
-      background: linear-gradient(270deg, #a26bff, #da8dff, #a26bff);
-      background-size: 400% 400%;
+      font-weight: 600;
+      margin-bottom: 14px;
+      background: linear-gradient(270deg, #aa00ff, #6500cc, #aa00ff);
+      background-size: 600% 600%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: pulseGradient 6s ease infinite;
+      animation: pulseText 4s ease infinite;
     }
-    @keyframes pulseGradient {
+    @keyframes pulseText {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    .bio {
-      font-size: 14px;
-      color: #aaa;
-      text-align: center;
-      max-width: 250px;
-    }
     .badges {
       display: flex;
-      gap: 10px;
+      gap: 12px;
     }
     .badges img {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
+      transition: transform 0.2s ease, filter 0.2s ease;
       cursor: pointer;
-      transition: transform 0.2s ease;
     }
     .badges img:hover {
-      transform: scale(1.2);
-    }
-    .badges img[title] {
-      position: relative;
-    }
-    .right {
-      flex: 2;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      transform: scale(1.3);
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
     }
     .player {
-      background: #2b2b2d;
+      margin-top: 0;
+      background: #222;
       border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
     }
     .player-title {
       font-size: 18px;
       font-weight: 600;
-      margin-bottom: 5px;
+      color: #fff;
     }
     .player-artist {
       font-size: 14px;
-      color: #999;
+      color: rgba(200, 200, 255, 0.5);
+      margin-bottom: 10px;
     }
     .player-controls {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 10px;
+      margin-top: 8px;
     }
     .player-controls img {
       width: 28px;
@@ -119,20 +119,21 @@
     .seek {
       width: 100%;
       height: 6px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(100, 100, 100, 0.3);
       border-radius: 6px;
       overflow: hidden;
-      margin-top: 10px;
+      margin-top: 12px;
     }
     .seek-fill {
       height: 100%;
-      background: rgba(255, 255, 255, 0.5);
+      background: #888;
       width: 0%;
     }
     .links {
       display: flex;
-      gap: 18px;
-      margin-top: 10px;
+      justify-content: start;
+      gap: 16px;
+      margin-top: 30px;
     }
     .links a img {
       width: 30px;
@@ -143,10 +144,9 @@
       opacity: 0.7;
     }
     .footer {
-      font-size: 12px;
-      color: #666;
-      text-align: center;
-      margin-top: 20px;
+      font-size: 13px;
+      color: #555;
+      margin-top: 25px;
     }
   </style>
 </head>
@@ -155,14 +155,12 @@
     <div class="left">
       <img src="assets/pfp.png" alt="Avatar" class="avatar">
       <div class="username">skoozuh</div>
-      <div class="bio">Chillin. Vibin. Grinding. Built different in the shadows.</div>
       <div class="badges">
-        <img src="assets/crownw.png" title="Owner" alt="Owner Badge">
-        <img src="assets/trophy.png" title="Trophy" alt="Trophy Badge">
-        <img src="assets/spider.png" title="Spider" alt="Spider Badge">
+        <img src="assets/crownw.png" alt="Owner" title="Owner">
+        <img src="assets/trophy.png" alt="Trophy" title="Trophy">
+        <img src="assets/spider.png" alt="Spider" title="Spider">
       </div>
     </div>
-
     <div class="right">
       <div class="player">
         <div class="player-title">Switchlanes</div>
@@ -176,16 +174,13 @@
         </div>
         <audio id="audio" src="assets/lucki.mp3"></audio>
       </div>
-
       <div class="links">
         <a href="https://guns.lol/wreak" target="_blank"><img src="assets/guns.png" alt="guns.lol"></a>
         <a href="https://instagram.com/deadbeforenight" target="_blank"><img src="assets/iglogo.png" alt="Instagram"></a>
       </div>
-
-      <div class="footer">© 2025 skoozuh</div>
+      <div class="footer">© 2025 skooozuh</div>
     </div>
   </div>
-
   <script>
     const audio = document.getElementById('audio');
     const playPauseIcon = document.getElementById('playPauseIcon');
