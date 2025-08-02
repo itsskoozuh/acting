@@ -15,24 +15,28 @@
     body {
       min-height: 100vh;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f0f10, #1c1f26);
       color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
+      background: linear-gradient(-45deg, #101926, #141e2e, #1c2634, #0e151d);
+      background-size: 400% 400%;
+      animation: animatedBackground 15s ease infinite;
       padding: 40px 20px;
+    }
+    @keyframes animatedBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     .container {
       width: 100%;
       max-width: 420px;
-      background: #1b1d23;
+      background: #1b1f27;
       padding: 30px;
       border-radius: 16px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       text-align: center;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
     }
     .avatar {
       width: 110px;
@@ -40,75 +44,62 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 16px;
-      border: 3px solid rgba(255, 255, 255, 0.05);
+      border: 3px solid rgba(255, 255, 255, 0.1);
     }
     .username {
       font-size: 28px;
       font-weight: 600;
-      margin-bottom: 12px;
-      background: linear-gradient(90deg, #a855f7, #7e22ce, #9333ea);
-      background-size: 200% auto;
+      margin-bottom: 10px;
+      background: linear-gradient(270deg, #7e5bef, #a45bf6);
+      background-size: 400% 400%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: pulseName 3s ease-in-out infinite;
+      animation: pulseUsername 6s ease infinite;
     }
-    @keyframes pulseName {
-      0%, 100% { background-position: 0% 50%; }
+    @keyframes pulseUsername {
+      0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     .badges {
       display: flex;
-      gap: 14px;
+      justify-content: center;
+      gap: 12px;
       margin-bottom: 20px;
     }
-    .badge {
-      position: relative;
-      display: inline-block;
-    }
-    .badge img {
+    .badges img {
       width: 24px;
       height: 24px;
       cursor: pointer;
-      transition: transform 0.2s ease, filter 0.2s ease;
     }
-    .badge:hover img {
-      transform: scale(1.2);
-      filter: drop-shadow(0 0 4px #a855f7);
+    .badges img:hover {
+      transform: scale(1.1);
     }
-    .badge::after {
-      content: attr(data-tooltip);
+    .badges img[title]:hover::after {
+      content: attr(title);
       position: absolute;
-      bottom: -28px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #2e2e3d;
-      color: #ccc;
-      padding: 4px 10px;
-      font-size: 12px;
+      background: #2b2f3b;
+      padding: 5px 10px;
       border-radius: 6px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-    }
-    .badge:hover::after {
-      opacity: 1;
+      color: #fff;
+      font-size: 12px;
+      margin-top: 5px;
     }
     .player {
-      width: 100%;
-      margin-top: 24px;
-      background: #2b2b2b;
+      margin: 28px 0;
+      background: #2a2e36;
       border-radius: 12px;
       padding: 16px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     }
     .player-title {
       font-size: 16px;
       font-weight: 600;
+      color: #ffffff;
     }
     .player-artist {
       font-size: 14px;
-      color: #8f8f8f;
+      color: #7d8ca3;
       margin-bottom: 8px;
     }
     .player-controls {
@@ -124,35 +115,35 @@
     }
     .seek {
       width: 100%;
-      height: 6px;
-      background: #444;
+      height: 5px;
+      background: #3c3f46;
       border-radius: 6px;
       overflow: hidden;
       margin-top: 12px;
     }
     .seek-fill {
       height: 100%;
-      background: #777;
+      background: #7f7f7f;
       width: 0%;
     }
     .links {
       display: flex;
       justify-content: center;
       gap: 20px;
-      margin-top: 30px;
+      margin-top: 32px;
     }
     .links a img {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       transition: opacity 0.2s ease;
     }
     .links a:hover img {
       opacity: 0.7;
     }
     .footer {
-      margin-top: 24px;
+      margin-top: 20px;
       font-size: 13px;
-      color: #555;
+      color: #777;
     }
   </style>
 </head>
@@ -162,9 +153,9 @@
     <div class="username">skoozuh</div>
 
     <div class="badges">
-      <div class="badge" data-tooltip="Owner"><img src="assets/crownw.png" alt="Owner"></div>
-      <div class="badge" data-tooltip="Trophy"><img src="assets/trophy.png" alt="Trophy"></div>
-      <div class="badge" data-tooltip="Spider"><img src="assets/spider.png" alt="Spider"></div>
+      <img src="assets/crownw.png" title="Owner" alt="Owner Badge">
+      <img src="assets/trophy.png" title="Trophy" alt="Trophy Badge">
+      <img src="assets/spider.png" title="Spider" alt="Spider Badge">
     </div>
 
     <div class="player">
