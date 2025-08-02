@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>skoozuh | Bio</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
@@ -12,52 +13,51 @@
       box-sizing: border-box;
     }
     body {
-      background: radial-gradient(ellipse at center, #0d0d0d 0%, #0a0a0a 100%);
+      min-height: 100vh;
+      background: #0b0b0c;
       font-family: 'Poppins', sans-serif;
       color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      padding: 40px;
     }
     .container {
       display: flex;
       flex-direction: row;
       gap: 40px;
-      background-color: #111;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
       max-width: 1000px;
-      width: 90%;
+      width: 100%;
+      background: #131316;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
       align-items: center;
     }
-    .profile {
+    .left {
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 240px;
+      gap: 16px;
+      flex: 1;
     }
     .avatar {
       width: 120px;
       height: 120px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 16px;
-      border: 3px solid rgba(255, 255, 255, 0.05);
+      border: 3px solid #2e2e2e;
     }
     .username {
       font-size: 32px;
-      font-weight: 600;
-      background: linear-gradient(270deg, #c66aff, #9332ff, #be6eff);
-      background-size: 600% 600%;
+      font-weight: 700;
+      background: linear-gradient(270deg, #a26bff, #da8dff, #a26bff);
+      background-size: 400% 400%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: pulse 6s ease infinite;
-      margin-bottom: 8px;
+      animation: pulseGradient 6s ease infinite;
     }
-    @keyframes pulse {
+    @keyframes pulseGradient {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
@@ -65,13 +65,12 @@
     .bio {
       font-size: 14px;
       color: #aaa;
-      margin-bottom: 20px;
       text-align: center;
+      max-width: 250px;
     }
     .badges {
       display: flex;
       gap: 10px;
-      justify-content: center;
     }
     .badges img {
       width: 22px;
@@ -82,33 +81,35 @@
     .badges img:hover {
       transform: scale(1.2);
     }
-    .right-section {
-      flex-grow: 1;
+    .badges img[title] {
+      position: relative;
+    }
+    .right {
+      flex: 2;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       gap: 20px;
     }
     .player {
-      background: #222;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-      padding: 20px;
+      background: #2b2b2d;
       border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
     }
     .player-title {
       font-size: 18px;
-      font-weight: 500;
-      color: #f0f0f0;
+      font-weight: 600;
+      margin-bottom: 5px;
     }
     .player-artist {
       font-size: 14px;
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 10px;
+      color: #999;
     }
     .player-controls {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-top: 10px;
     }
     .player-controls img {
       width: 28px;
@@ -125,12 +126,12 @@
     }
     .seek-fill {
       height: 100%;
-      background: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.5);
       width: 0%;
     }
     .links {
       display: flex;
-      gap: 20px;
+      gap: 18px;
       margin-top: 10px;
     }
     .links a img {
@@ -143,25 +144,26 @@
     }
     .footer {
       font-size: 12px;
-      color: #555;
-      margin-top: auto;
+      color: #666;
+      text-align: center;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="profile">
+    <div class="left">
       <img src="assets/pfp.png" alt="Avatar" class="avatar">
       <div class="username">skoozuh</div>
-      <div class="bio">just vibin’ on the web, playing beats and games</div>
+      <div class="bio">Chillin. Vibin. Grinding. Built different in the shadows.</div>
       <div class="badges">
         <img src="assets/crownw.png" title="Owner" alt="Owner Badge">
-        <img src="assets/trophy.png" title="Champion" alt="Trophy Badge">
-        <img src="assets/spider.png" title="Stealth" alt="Spider Badge">
+        <img src="assets/trophy.png" title="Trophy" alt="Trophy Badge">
+        <img src="assets/spider.png" title="Spider" alt="Spider Badge">
       </div>
     </div>
 
-    <div class="right-section">
+    <div class="right">
       <div class="player">
         <div class="player-title">Switchlanes</div>
         <div class="player-artist">LUCKI</div>
@@ -179,6 +181,7 @@
         <a href="https://guns.lol/wreak" target="_blank"><img src="assets/guns.png" alt="guns.lol"></a>
         <a href="https://instagram.com/deadbeforenight" target="_blank"><img src="assets/iglogo.png" alt="Instagram"></a>
       </div>
+
       <div class="footer">© 2025 skoozuh</div>
     </div>
   </div>
