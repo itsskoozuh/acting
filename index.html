@@ -3,190 +3,178 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>skoozuh | Bio</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>skoozuh</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" />
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
     }
+
     body {
-      min-height: 100vh;
-      background-color: #0e0e0e;
-      font-family: 'Poppins', sans-serif;
-      color: #ffffff;
+      background-color: #0d0d0d;
+      color: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 40px 20px;
+      min-height: 100vh;
     }
+
     .container {
-      width: 100%;
-      max-width: 420px;
-      background: #1a1a1a;
-      padding: 30px;
+      background-color: #1a1a1a;
       border-radius: 16px;
+      padding: 30px;
+      width: 360px;
       text-align: center;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
-    .avatar {
-      width: 110px;
-      height: 110px;
+
+    .pfp {
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 16px;
-      border: 3px solid rgba(255, 255, 255, 0.05);
+      border: 3px solid #444;
+      margin-bottom: 20px;
     }
+
     .username {
       font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 10px;
-      background: linear-gradient(270deg, #2e5cb8, #426bdb, #29457a);
-      background-size: 600% 600%;
+      font-weight: 800;
+      background: linear-gradient(270deg, #1a73e8, #3a4edb);
+      background-size: 400% 400%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: wavyPulse 8s ease infinite;
+      animation: waveblue 6s ease infinite;
     }
-    @keyframes wavyPulse {
+
+    @keyframes waveblue {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+
     .badges {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 20px;
+      margin: 20px 0;
     }
-    .badges img {
-      width: 20px;
-      height: 20px;
-      transition: transform 0.2s ease;
-      cursor: pointer;
-    }
-    .badges img:hover {
-      transform: scale(1.2);
-    }
-    .player {
-      margin-top: 28px;
-      background: #222;
-      border-radius: 12px;
-      padding: 16px;
-    }
-    .player-title {
-      font-size: 16px;
-      font-weight: 500;
-      color: #f0f0f0;
-    }
-    .player-artist {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 8px;
-    }
-    .player-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 10px;
-    }
-    .player-controls img {
-      width: 26px;
-      height: 26px;
-      cursor: pointer;
-    }
-    .seek {
-      width: 100%;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 6px;
-      overflow: hidden;
-      margin-top: 12px;
-    }
-    .seek-fill {
-      height: 100%;
-      background: rgba(255, 255, 255, 0.35);
-      width: 0%;
-    }
-    .links {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 32px;
-    }
-    .links a img {
+
+    .badge {
       width: 32px;
       height: 32px;
+      margin: 0 5px;
+    }
+
+    .badge:hover::after {
+      content: attr(alt);
+      position: absolute;
+      font-size: 12px;
+      background: #333;
+      color: #fff;
+      padding: 4px 6px;
+      border-radius: 6px;
+      transform: translateY(-40px);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      background-color: #262626;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .link-btn:hover {
+      background-color: #333;
+    }
+
+    .music {
+      background-color: #121212;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 20px 0;
+    }
+
+    .music-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .music-artist {
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(90deg, #9c27b0, #d500f9);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: wavepurple 5s ease infinite;
+    }
+
+    @keyframes wavepurple {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .bottom-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .bottom-links img {
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
       transition: opacity 0.2s ease;
     }
-    .links a:hover img {
+
+    .bottom-links img:hover {
       opacity: 0.7;
-    }
-    .footer {
-      margin-top: 20px;
-      font-size: 13px;
-      color: #555;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <img src="assets/pfp.png" alt="Avatar" class="avatar">
+    <img src="assets/pfp.png" alt="Profile Picture" class="pfp" />
     <div class="username">skoozuh</div>
 
     <div class="badges">
-      <img src="assets/crownw.png" title="Owner" alt="Owner Badge">
-      <img src="assets/trophy.png" title="Champion" alt="Trophy Badge">
-      <img src="assets/spider.png" title="Stealth" alt="Spider Badge">
+      <img src="assets/crownw.png" class="badge" alt="owner" />
+      <img src="assets/trophy.png" class="badge" alt="champion" />
+      <img src="assets/spider.png" class="badge" alt="stealth" />
     </div>
 
-    <div class="player">
-      <div class="player-title">Switchlanes</div>
-      <div class="player-artist">LUCKI</div>
-      <div class="player-controls">
-        <img id="playPauseIcon" src="assets/play.png" alt="Play">
-        <div id="durationText">0:00</div>
-      </div>
-      <div class="seek">
-        <div id="seekFill" class="seek-fill"></div>
-      </div>
-      <audio id="audio" src="assets/lucki.mp3"></audio>
+    <div class="music">
+      <div class="music-title">Switchlanes</div>
+      <div class="music-artist">LUCKI</div>
+      <audio src="assets/lucki.mp3" controls style="width: 100%; margin-top: 10px;"></audio>
     </div>
 
     <div class="links">
-      <a href="https://guns.lol/wreak" target="_blank"><img src="assets/guns.png" alt="guns.lol"></a>
-      <a href="https://instagram.com/deadbeforenight" target="_blank"><img src="assets/iglogo.png" alt="Instagram"></a>
+      <a href="https://guns.lol/wreak" class="link-btn">guns.lol</a>
+      <a href="https://instagram.com/skoozuh" class="link-btn">instagram</a>
     </div>
 
-    <div class="footer">© 2025 skoozuh</div>
+    <div class="bottom-links">
+      <a href="https://guns.lol/wreak"><img src="assets/guns.png" alt="guns"></a>
+      <a href="https://instagram.com/skoozuh"><img src="assets/iglogo.png" alt="instagram"></a>
+    </div>
   </div>
-
-  <script>
-    const audio = document.getElementById('audio');
-    const playPauseIcon = document.getElementById('playPauseIcon');
-    const seekFill = document.getElementById('seekFill');
-    const durationText = document.getElementById('durationText');
-    let isPlaying = false;
-
-    playPauseIcon.addEventListener('click', () => {
-      if (isPlaying) {
-        audio.pause();
-        playPauseIcon.src = 'assets/play.png';
-      } else {
-        audio.play().catch(e => console.error(e));
-        playPauseIcon.src = 'assets/pause.png';
-      }
-      isPlaying = !isPlaying;
-    });
-
-    audio.addEventListener('timeupdate', () => {
-      const percent = (audio.currentTime / audio.duration) * 100;
-      seekFill.style.width = `${percent}%`;
-      const mins = Math.floor(audio.currentTime / 60);
-      const secs = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
-      durationText.textContent = `${mins}:${secs}`;
-    });
-  </script>
 </body>
 </html>
