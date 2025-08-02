@@ -80,11 +80,18 @@
     }
 
     .music {
-      background-color: #2a2a2a;
+      background-color: #1a1a1a;
       padding: 1rem;
       border-radius: 15px;
       margin-bottom: 1.5rem;
       font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .music-info {
+      text-align: left;
     }
 
     .music-title {
@@ -98,6 +105,12 @@
       -webkit-text-fill-color: transparent;
       animation: wavepulse 4s ease-in-out infinite;
       font-size: 0.85rem;
+    }
+
+    .music-play {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
     }
 
     .socials {
@@ -130,12 +143,11 @@
     </div>
 
     <div class="music">
-      <div class="music-title">Switchlanes</div>
-      <div class="music-artist">LUCKI</div>
-      <audio controls style="width: 100%; margin-top: 0.5rem;">
-        <source src="assets/lucki.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
+      <div class="music-info">
+        <div class="music-title">Switchlanes</div>
+        <div class="music-artist">LUCKI</div>
+      </div>
+      <img src="assets/play.png" alt="Play" class="music-play">
     </div>
 
     <div class="socials">
