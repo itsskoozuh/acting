@@ -49,7 +49,7 @@
     padding: 4px;
     border-radius: 24px;
     background: linear-gradient(135deg, #444, #222);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* subtle outer shadow */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     display: inline-block;
     transition: transform 0.2s ease;
     transform-style: preserve-3d;
@@ -154,14 +154,63 @@
     color: #999;
   }
 
-  .badge {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border-radius: 0px;
-    background-size: cover;
-    background-position: center;
-    vertical-align: middle;
+  .badge-container {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 16px;
+    border: none;
+    background: transparent;
+    position: relative;
+  }
+
+  .badge-container::before {
+    content: none;
+  }
+
+  .badge-container img {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px; /* Rounded corners */
+    margin-right: 6px;
+    margin-left: 2px;
+    object-fit: contain;
+    filter: none;
+    box-shadow: none;
+    position: relative;
+    padding: 4px; /* space for border */
+    z-index: 1;
+  }
+
+  /* Animated gradient border for badges */
+  .badge-container img::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 10px;
+    padding: 2px;
+    background: linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
+    background-size: 400% 400%;
+    animation: gradientBorder 3s ease infinite;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    z-index: 0;
+  }
+
+  @keyframes gradientBorder {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 
   .badge.quest {
@@ -272,32 +321,6 @@
   #seekBar:active {
     height: 8px;
   }
-
-  .badge-container {
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  padding: 5px;
-  border-radius: 16px;
-  border: none;
-  background: transparent;
-  position: relative;
-}
-
-  .badge-container::before {
-    content: none;
-  }
-
-  .badge-container img {
-  width: 20px;
-  height: 20px;
-  border-radius: 0;
-  margin-right: 6px;
-  margin-left: 2px;
-  object-fit: contain;
-  filter: none;
-  box-shadow: none;
-}
 
   .social-logos {
     display: flex;
