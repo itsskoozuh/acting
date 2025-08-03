@@ -1,185 +1,198 @@
-/* Reset user-select and base styles */
-* {
-  box-sizing: border-box;
-  margin: 0; padding: 0;
-  font-family: 'Poppins', sans-serif;
-  user-select: none;
-}
-
-body, html {
+body {
+  margin: 0;
   height: 100vh;
-  background: #121214;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ccc;
+  background: #111;
+  font-family: 'Poppins', sans-serif;
   overflow: hidden;
-  perspective: 900px;
+  color: #bbb;
 }
 
 #blurOverlay {
   position: fixed;
-  inset: 0;
-  background: rgba(18, 18, 20, 0.85);
-  backdrop-filter: blur(14px);
-  color: #ddd;
-  font-weight: 700;
-  font-size: 28px;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(17, 17, 17, 0.9);
+  backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  font-size: 28px;
+  font-weight: 600;
   cursor: pointer;
   z-index: 9999;
+  user-select: none;
   transition: opacity 0.3s ease;
+  color: white;
 }
+
 #blurOverlay.hidden {
   opacity: 0;
   pointer-events: none;
 }
 
 .card-wrapper {
-  background: linear-gradient(145deg, #2a2a2c, #1e1e20);
-  border-radius: 28px;
-  padding: 6px;
-  /* Removed glow, added subtle shadow for border */
-  box-shadow:
-    0 0 12px rgba(0, 0, 0, 0.7),
-    inset 0 0 6px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
-  width: 560px;
-  max-width: 90vw;
+  padding: 4px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #444, #222);
+  /* Changed glow to subtle shadow */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+  display: inline-block;
+  transition: transform 0.2s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .card {
-  background: rgba(28, 28, 30, 0.7);
-  border-radius: 22px;
-  padding: 30px 35px;
-  box-shadow:
-    inset 0 0 20px rgba(0, 0, 0, 0.7),
-    0 4px 12px rgba(0, 0, 0, 0.4);
   position: relative;
-  overflow: hidden;
-  color: #bbb;
+  width: 550px;
+  min-height: 250px;
+  border-radius: 20px;
+  padding: 25px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  align-items: flex-start;
+  background: transparent;
+  color: #bbb;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
   z-index: 1;
 }
 
 .card::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: url('assets/background.png') no-repeat center/cover;
-  filter: blur(9px) brightness(0.4);
-  border-radius: 22px;
-  z-index: 0;
-  opacity: 0.35;
-  pointer-events: none;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('assets/background.png') no-repeat center center/cover;
+  filter: blur(8px);
+  opacity: 0.5;
+  border-radius: 20px;
+  z-index: -1;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
 }
 
 .profile-pic {
-  width: 130px;
-  height: 130px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  border: 3px solid #666666cc;
-  box-shadow: none; /* Removed glow */
   object-fit: cover;
-  margin-bottom: 8px;
-  align-self: center;
-  background: #222;
-  z-index: 1;
-}
-
-.name-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  z-index: 1;
+  margin-bottom: 5px;
+  border: 3px solid rgba(100, 100, 100, 0.5);
+  box-shadow: none; /* removed glow */
 }
 
 .name {
-  font-size: 36px;
-  font-weight: 700;
-  color: #aaa;
+  font-size: 35px;
+  font-weight: 600;
+  margin-left: 5px;
+  color: #bbb;
   /* Removed text-shadow */
-  background: linear-gradient(135deg, #999999, #666666);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: none; /* Removed animation */
 }
 
-/* Gold gradient Owner text - no glow or animation */
-.owner-text {
-  font-weight: 700;
-  font-size: 18px;
-  background: linear-gradient(90deg, #d4af37, #f3db6b, #d4af37);
-  background-size: 100% 100%;
-  background-position: 0% 0;
+.prod-gradient {
+  background: linear-gradient(135deg, #1e90ff, #00bfff);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: none;
-  display: inline-flex;
+  text-shadow: none; /* removed glow */
+  animation: borderScroll 3s ease-in-out infinite alternate;
+  display: inline-block;
+}
+
+.description {
+  font-size: 16px;
+  color: #bbb;
+  line-height: 1.4;
+  max-width: 100%;
+  margin-left: 5px;
+  display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.description {
-  text-align: center;
-  user-select: text;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
+.owner-text {
+  font-weight: 700;
+  font-size: 18px;
+  background: linear-gradient(90deg, #d4af37, #f3db6b, #d4af37);
+  background-size: 200% 100%;
+  background-position: 0% 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldFlow 3.5s linear infinite;
+  user-select: none;
+}
+
+@keyframes goldFlow {
+  0% { background-position: 0% 0; }
+  100% { background-position: 100% 0; }
 }
 
 .presence-card {
   display: flex;
   align-items: center;
-  gap: 16px;
-  background: rgba(150, 150, 150, 0.07);
-  border-radius: 14px;
-  padding: 12px 18px;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  background: rgba(150, 150, 150, 0.05);
+  border-radius: 12px;
+  padding: 10px 14px;
+  box-sizing: border-box;
+  width: 100%;
   backdrop-filter: blur(5px);
-  color: #aaa;
-  user-select: none;
-  z-index: 1;
+  margin-top: 25px;
+  color: #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
-.presence-card .avatar {
-  width: 62px;
-  height: 62px;
+.avatar {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  border: 2px solid #555555cc;
   object-fit: cover;
-  box-shadow: none; /* Removed glow */
-  background: #333;
+  margin-right: 12px;
+  border: 2px solid #333;
+  box-shadow: none; /* removed glow */
 }
 
-.presence-card .details {
-  font-size: 14px;
-  color: #888;
-  font-weight: 600;
-  user-select: text;
-}
-
-.presence-card .username {
-  font-weight: 700;
-  color: #bbb;
+.details .username {
+  font-size: 15px;
+  font-weight: 500;
+  color: #999;
 }
 
 .music-player {
-  background: rgba(150, 150, 150, 0.12);
-  border-radius: 16px;
-  padding: 15px 20px;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  width: 100%;
+  background: rgba(150, 150, 150, 0.07);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-sizing: border-box;
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   color: #ccc;
-  user-select: none;
-  z-index: 1;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.track-info {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  line-height: 0.5;
+}
+
+.artist-name {
+  font-weight: 400;
+  color: rgba(200, 200, 200, 0.7);
+  font-size: 14px;
+  margin-top: 8px;
 }
 
 .controls {
@@ -188,118 +201,129 @@ body, html {
   align-items: center;
 }
 
-.track-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-weight: 600;
-}
-
-#track-title {
-  font-size: 16px;
-  color: #ddd;
-}
-
-#track-artist {
-  font-size: 14px;
-  color: #aaa;
-  font-weight: 400;
-}
-
-button#playPauseBtn {
-  background: none;
+.controls button {
+  background: transparent;
   border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
-  transition: transform 0.3s ease;
-  filter: none; /* Removed glow */
+  transition: transform 0.2s ease;
+  filter: none; /* removed glow */
 }
-button#playPauseBtn:hover {
-  transform: scale(1.15);
+
+.controls button:hover {
+  transform: scale(1.05);
 }
-button#playPauseBtn img {
-  width: 30px;
-  height: 30px;
-  filter: none; /* Removed glow */
+
+.controls img {
+  width: 26px;
+  height: 26px;
+  transition: opacity 0.25s ease;
+  filter: none; /* removed glow */
 }
 
 #seekBar {
-  width: 100%;
-  margin-top: 14px;
-  height: 6px;
-  border-radius: 12px;
-  background: linear-gradient(to right, #666666cc 0%, #444444cc 100%);
   -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(180, 180, 180, 0.3);
+  border-radius: 10px;
+  position: relative;
   cursor: pointer;
-  outline: none;
+  overflow: hidden;
+  transition: height 0.2s ease;
 }
 
 #seekBar::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 14px;
-  height: 14px;
-  background: #aaa;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: none; /* Removed glow */
-  border: 2px solid #888;
-  transition: background-color 0.25s ease;
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: none;
 }
-#seekBar::-webkit-slider-thumb:hover {
-  background: #bbb;
+
+#seekBar::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  background: rgba(180, 180, 180, 0.6);
+  width: 0%;
+  z-index: 1;
+  transition: width 0.1s linear;
+}
+
+#seekBar:hover,
+#seekBar:active {
+  height: 8px;
 }
 
 .social-logos {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
-  gap: 20px;
-  opacity: 0.25;
-  transition: opacity 0.3s ease;
-  user-select: none;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
+  opacity: 0.1;
 }
-.social-logos:hover {
-  opacity: 0.65;
-}
+
 .social-icon {
-  width: 38px;
-  height: 38px;
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
   filter: none;
-  cursor: pointer;
+}
+
+.social-logos a {
+  display: inline-block;
   transition: transform 0.3s ease;
 }
-.social-icon:hover {
-  transform: scale(1.2);
+
+.social-logos a:hover {
+  transform: scale(1.1);
 }
 
 @media (max-width: 480px) {
-  .card-wrapper {
-    width: 95vw;
+  .card {
+    width: 90vw;
+    padding: 20px;
   }
+
   .profile-pic {
     width: 100px;
     height: 100px;
   }
+
   .name {
     font-size: 28px;
   }
+
   .description {
-    font-size: 16px;
+    font-size: 14px;
   }
-  .presence-card .avatar {
-    width: 48px;
-    height: 48px;
-  }
+
+  .presence-card,
   .music-player {
-    padding: 12px 15px;
+    padding: 10px;
   }
-  #playPauseBtn img {
-    width: 26px;
-    height: 26px;
-  }
+
   .social-icon {
     width: 28px;
     height: 28px;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .track-info {
+    font-size: 13px;
+  }
+
+  .artist-name {
+    font-size: 12px;
   }
 }
