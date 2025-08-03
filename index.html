@@ -7,122 +7,445 @@
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    /* Reset and base */
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
+      margin: 0; padding: 0;
       font-family: 'Poppins', sans-serif;
+      user-select: none;
     }
 
-    body {
-      background: url('assets/bg.png') no-repeat center center fixed;
-      background-size: cover;
-      backdrop-filter: blur(6px) brightness(0.85);
-      -webkit-backdrop-filter: blur(6px) brightness(0.85);
-      color: #fff;
+    body, html {
       height: 100vh;
-      overflow: hidden;
+      background: #0f1117 url('assets/background.png') no-repeat center center fixed;
+      background-size: cover;
       display: flex;
       justify-content: center;
       align-items: center;
+      color: #ddd;
+      overflow: hidden;
+      perspective: 900px;
     }
 
+    /* Blur overlay */
+    #blurOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 17, 23, 0.85);
+      backdrop-filter: blur(14px);
+      color: #fff;
+      font-weight: 700;
+      font-size: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 9999;
+      transition: opacity 0.3s ease;
+    }
+    #blurOverlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Card wrapper with 3D tilt */
+    .card-wrapper {
+      background: linear-gradient(145deg, #1a1c26, #0c0e15);
+      border-radius: 28px;
+      padding: 6px;
+      box-shadow:
+        0 0 10px #00bfff88,
+        inset 0 0 15px #004466;
+      transition: transform 0.3s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+      width: 560px;
+      max-width: 90vw;
+    }
+
+    /* Main card */
     .card {
+      background: rgba(10, 12, 18, 0.7);
+      border-radius: 22px;
+      padding: 30px 35px;
+      box-shadow:
+        inset 0 0 30px rgba(0, 0, 0, 0.85),
+        0 4px 15px rgba(0, 191, 255, 0.4);
       position: relative;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 30px;
-      padding: 40px;
-      backdrop-filter: blur(20px) brightness(1.1);
-      -webkit-backdrop-filter: blur(20px) brightness(1.1);
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
-      width: 380px;
-      text-align: center;
-      animation: fadeIn 1s ease-out;
+      overflow: hidden;
+      color: #ccc;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('assets/background.png') no-repeat center/cover;
+      filter: blur(9px) brightness(0.5);
+      border-radius: 22px;
+      z-index: 0;
+      opacity: 0.4;
+      pointer-events: none;
     }
 
-    .avatar {
-      width: 120px;
-      height: 120px;
+    /* Profile image */
+    .profile-pic {
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
-      border: 3px solid #00ffff88;
-      margin: 0 auto 20px auto;
-      box-shadow: 0 0 20px #00ffff44;
+      border: 3px solid #00bfffaa;
+      box-shadow: 0 0 15px #00bfffaa;
+      object-fit: cover;
+      margin-bottom: 8px;
+      z-index: 1;
+      align-self: center;
+    }
+
+    /* Name and badges row */
+    .name-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      z-index: 1;
     }
 
     .name {
-      font-size: 30px;
-      font-weight: 600;
-      background: linear-gradient(90deg, #00ffff, #0077ff);
+      font-size: 36px;
+      font-weight: 700;
+      color: #bbb;
+      text-shadow: 0 0 8px #00bfffaa;
+      background: linear-gradient(135deg, #00bfff, #1e90ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 5px;
-      animation: pulseName 2.5s ease-in-out infinite;
+      animation: pulseText 3.5s ease-in-out infinite;
     }
 
-    @keyframes pulseName {
-      0%, 100% { text-shadow: 0 0 8px #00ffffaa; }
-      50% { text-shadow: 0 0 15px #0077ffcc; }
-    }
-
-    .description {
-      font-size: 14px;
-      color: #cccccc;
-      margin-bottom: 20px;
-      opacity: 0.9;
+    @keyframes pulseText {
+      0%, 100% { text-shadow: 0 0 12px #00bfffcc; }
+      50% { text-shadow: 0 0 24px #1e90ffee; }
     }
 
     .badge-container {
       display: flex;
-      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .badge-container img {
+      width: 22px;
+      height: 22px;
+      filter: drop-shadow(0 0 2px #00bfffbb);
+      transition: transform 0.25s ease;
+      cursor: default;
+    }
+    .badge-container img:hover {
+      transform: scale(1.15);
+    }
+
+    /* Description */
+    .description {
+      font-size: 16px;
+      text-align: center;
+      color: #aaa;
+      z-index: 1;
+      line-height: 1.4;
+      user-select: text;
+    }
+
+    /* Presence card */
+    .presence-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(0, 191, 255, 0.07);
+      border-radius: 14px;
+      padding: 12px 18px;
+      box-shadow: 0 0 12px rgba(0, 191, 255, 0.3);
+      backdrop-filter: blur(5px);
+      color: #cceeffcc;
+      user-select: none;
+      z-index: 1;
+    }
+
+    .presence-card .avatar {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      border: 2px solid #0077aa;
+      object-fit: cover;
+      box-shadow: 0 0 14px #00bfffaa;
+    }
+
+    .presence-card .details {
+      font-size: 14px;
+      color: #aaddffcc;
+      font-weight: 600;
+      user-select: text;
+    }
+
+    .presence-card .username {
+      display: flex;
+      align-items: center;
       gap: 8px;
-      justify-content: center;
-      margin-top: 25px;
+      font-weight: 700;
+      color: #bbeeff;
     }
 
     .badge {
-      font-size: 12px;
-      padding: 6px 12px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
-      color: #ffffffaa;
-      backdrop-filter: blur(4px);
-      transition: all 0.25s ease-in-out;
+      width: 18px;
+      height: 18px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      filter: drop-shadow(0 0 3px #00bfffcc);
     }
 
-    .badge:hover {
-      background: rgba(0, 255, 255, 0.1);
-      color: #ffffff;
-      transform: scale(1.05);
+    .badge.quest {
+      background-image: url('assets/quest.png');
+    }
+    .badge.bravery {
+      background-image: url('assets/bravery.png');
     }
 
-    .footer {
-      margin-top: 25px;
-      font-size: 12px;
-      color: #777;
+    /* Music player */
+    .music-player {
+      background: rgba(0, 191, 255, 0.1);
+      border-radius: 16px;
+      padding: 15px 20px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 16px rgba(0, 191, 255, 0.4);
+      color: #d0eaffcc;
+      z-index: 1;
+      user-select: none;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .track-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-weight: 600;
+    }
+
+    #track-title {
+      font-size: 16px;
+      color: #e0f0ff;
+    }
+
+    #track-artist {
+      font-size: 14px;
+      color: #a0caff;
+      font-weight: 400;
+    }
+
+    button#playPauseBtn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 3px #00bfffaa);
+    }
+    button#playPauseBtn:hover {
+      transform: scale(1.15);
+    }
+    button#playPauseBtn img {
+      width: 30px;
+      height: 30px;
+    }
+
+    #seekBar {
+      width: 100%;
+      margin-top: 14px;
+      height: 6px;
+      border-radius: 12px;
+      background: linear-gradient(to right, #00bfffaa 0%, #006699aa 100%);
+      -webkit-appearance: none;
+      cursor: pointer;
+      outline: none;
+    }
+
+    #seekBar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      background: #00ffffdd;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 6px #00bfffcc;
+      border: 2px solid #00bfff;
+      transition: background-color 0.25s ease;
+    }
+    #seekBar::-webkit-slider-thumb:hover {
+      background: #00ffff;
+    }
+
+    /* Social logos */
+    .social-logos {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      gap: 20px;
+      opacity: 0.25;
+      transition: opacity 0.3s ease;
+      user-select: none;
+    }
+    .social-logos:hover {
+      opacity: 0.65;
+    }
+    .social-icon {
+      width: 38px;
+      height: 38px;
+      filter: drop-shadow(0 0 4px #00bfffaa);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .social-icon:hover {
+      transform: scale(1.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .card-wrapper {
+        width: 95vw;
+      }
+      .profile-pic {
+        width: 100px;
+        height: 100px;
+      }
+      .name {
+        font-size: 28px;
+      }
+      .description {
+        font-size: 14px;
+      }
+      .presence-card .avatar {
+        width: 48px;
+        height: 48px;
+      }
+      .music-player {
+        padding: 12px 15px;
+      }
+      #playPauseBtn img {
+        width: 26px;
+        height: 26px;
+      }
+      .social-icon {
+        width: 28px;
+        height: 28px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <img class="avatar" src="assets/avatar.png" alt="Avatar">
-    <div class="name">@skoozuh</div>
-    <div class="description">music producer | creative mind | innovator</div>
-    <div class="badge-container">
-      <div class="badge">Ableton</div>
-      <div class="badge">Trap</div>
-      <div class="badge">808 Mafia</div>
-      <div class="badge">Sound Design</div>
-      <div class="badge">Mixing</div>
+
+  <div id="blurOverlay">grief</div>
+
+  <div class="card-wrapper" id="cardWrapper">
+    <div class="card">
+      <img src="assets/pfp.png" alt="Profile Picture" class="profile-pic" />
+
+      <div class="name-row">
+        <div class="name">prod <span class="prod-gradient">@skoozuh</span></div>
+        <div class="badge-container">
+          <img src="assets/crownw.png" alt="Owner Badge" />
+          <img src="assets/trophy.png" alt="Trophy Badge" />
+        </div>
+      </div>
+
+      <div class="description">
+        Owner<br />@skoozuh
+      </div>
+
+      <div class="presence-card">
+        <img class="avatar" src="https://media.discordapp.net/attachments/1401010039681978381/1401023191757099170/pfp.png" alt="Discord Avatar" />
+        <div class="details">
+          <div class="username">
+            skoozuh
+            <span class="badge quest"></span>
+            <span class="badge bravery"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="music-player">
+        <div class="controls">
+          <div class="track-info">
+            <span id="track-title">Switchlanes</span>
+            <span id="track-artist">LUCKI</span>
+          </div>
+          <button id="playPauseBtn" aria-label="Play/Pause">
+            <img id="playPauseIcon" src="assets/play.png" alt="Play Icon" />
+          </button>
+        </div>
+        <input type="range" id="seekBar" min="0" max="100" value="0" step="1" aria-label="Audio Seek Bar" />
+        <audio id="audio" src="assets/lucki.mp3"></audio>
+      </div>
+
+      <div class="social-logos">
+        <a href="https://instagram.com/deadbeforenight" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <img src="assets/iglogo.png" alt="Instagram Logo" class="social-icon" />
+        </a>
+      </div>
     </div>
-    <div class="footer">crd | 2025</div>
   </div>
+
+<script>
+  const wrapper = document.getElementById('cardWrapper');
+  const blurOverlay = document.getElementById('blurOverlay');
+  const audio = document.getElementById('audio');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const playPauseIcon = document.getElementById('playPauseIcon');
+  const seekBar = document.getElementById('seekBar');
+
+  // 3D tilt effect
+  wrapper.addEventListener('mousemove', e => {
+    const rect = wrapper.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    wrapper.style.transform = `rotateX(${y / -18}deg) rotateY(${x / 18}deg)`;
+  });
+  wrapper.addEventListener('mouseleave', () => {
+    wrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
+  });
+
+  // Blur overlay click to hide
+  blurOverlay.addEventListener('click', () => {
+    blurOverlay.classList.add('hidden');
+  });
+
+  // Audio play/pause toggle
+  playPauseBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      playPauseIcon.src = "assets/pause.png";
+    } else {
+      audio.pause();
+      playPauseIcon.src = "assets/play.png";
+    }
+  });
+
+  // Sync seek bar with audio
+  audio.addEventListener('timeupdate', () => {
+    seekBar.max = audio.duration || 100;
+    seekBar.value = audio.currentTime;
+  });
+
+  // Seek audio on input
+  seekBar.addEventListener('input', () => {
+    audio.currentTime = seekBar.value;
+  });
+</script>
+
 </body>
 </html>
