@@ -167,15 +167,15 @@
   .badge.quest {
     background-image: url('assets/quest.png');
     margin-left: 5px;
-    filter: grayscale(80%) brightness(60%);
-    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+    filter: none;
+    box-shadow: none;
   }
 
   .badge.bravery {
     background-image: url('assets/bravery.png');
     margin-left: 1px;
-    filter: grayscale(80%) brightness(60%);
-    box-shadow: 0 0 3px rgba(0,0,0,0.5);
+    filter: none;
+    box-shadow: none;
   }
 
   .music-player {
@@ -279,24 +279,13 @@
   margin-left: 10px;
   padding: 5px;
   border-radius: 16px;
-  border: none; /* remove border */
-  background: transparent; /* remove background */
+  border: none;
+  background: transparent;
   position: relative;
 }
 
   .badge-container::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    z-index: -1;
-    border-radius: 18px;
-    background: linear-gradient(135deg, #444, #222);
-    background-size: 200% 200%;
-    animation: none;
-    box-shadow: 0 0 8px rgba(0,0,0,0.6);
+    content: none;
   }
 
   .badge-container img {
@@ -381,7 +370,7 @@
 
 <body>
 
-<div id="blurOverlay">click to continue</div>
+<div id="blurOverlay">grief</div>
 
  <div class="card-wrapper" id="cardWrapper">
    <div class="card" id="card">
@@ -415,7 +404,7 @@
        <div class="controls">
          <div class="track-info">
            <div style="display: flex; align-items: center; gap: 10px;">
-             <span id="track-title">Switchlanes By - LUCKI</span>
+             <span id="track-title">Switchlanes</span>
              <span id="track-duration" style="font-size: 13px; color: rgba(255, 255, 255, 0.5);">0:00</span>
            </div>
            <span id="track-artist" class="artist-name">LUCKI</span>
@@ -474,7 +463,7 @@
  const trackDuration = document.getElementById('track-duration');
 
  const song = {
-   title: "Switchlanes By - LUCKI",
+   title: "Switchlanes",
    artist: "LUCKI",
    url: "assets/lucki.mp3"
  };
