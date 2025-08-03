@@ -7,7 +7,6 @@
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    /* Reset and base */
     * {
       box-sizing: border-box;
       margin: 0; padding: 0;
@@ -27,7 +26,6 @@
       perspective: 900px;
     }
 
-    /* Blur overlay */
     #blurOverlay {
       position: fixed;
       inset: 0;
@@ -48,7 +46,6 @@
       pointer-events: none;
     }
 
-    /* Card wrapper with 3D tilt */
     .card-wrapper {
       background: linear-gradient(145deg, #1a1c26, #0c0e15);
       border-radius: 28px;
@@ -63,7 +60,6 @@
       max-width: 90vw;
     }
 
-    /* Main card */
     .card {
       background: rgba(10, 12, 18, 0.7);
       border-radius: 22px;
@@ -91,7 +87,6 @@
       pointer-events: none;
     }
 
-    /* Profile image */
     .profile-pic {
       width: 130px;
       height: 130px;
@@ -104,7 +99,6 @@
       align-self: center;
     }
 
-    /* Name and badges row */
     .name-row {
       display: flex;
       align-items: center;
@@ -129,25 +123,6 @@
       50% { text-shadow: 0 0 24px #1e90ffee; }
     }
 
-    .badge-container {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      z-index: 1;
-    }
-
-    .badge-container img {
-      width: 22px;
-      height: 22px;
-      filter: drop-shadow(0 0 2px #00bfffbb);
-      transition: transform 0.25s ease;
-      cursor: default;
-    }
-    .badge-container img:hover {
-      transform: scale(1.15);
-    }
-
-    /* Description */
     .description {
       font-size: 16px;
       text-align: center;
@@ -157,7 +132,6 @@
       user-select: text;
     }
 
-    /* Presence card */
     .presence-card {
       display: flex;
       align-items: center;
@@ -189,29 +163,10 @@
     }
 
     .presence-card .username {
-      display: flex;
-      align-items: center;
-      gap: 8px;
       font-weight: 700;
       color: #bbeeff;
     }
 
-    .badge {
-      width: 18px;
-      height: 18px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      filter: drop-shadow(0 0 3px #00bfffcc);
-    }
-
-    .badge.quest {
-      background-image: url('assets/quest.png');
-    }
-    .badge.bravery {
-      background-image: url('assets/bravery.png');
-    }
-
-    /* Music player */
     .music-player {
       background: rgba(0, 191, 255, 0.1);
       border-radius: 16px;
@@ -290,7 +245,6 @@
       background: #00ffff;
     }
 
-    /* Social logos */
     .social-logos {
       display: flex;
       justify-content: center;
@@ -314,7 +268,6 @@
       transform: scale(1.2);
     }
 
-    /* Responsive */
     @media (max-width: 480px) {
       .card-wrapper {
         width: 95vw;
@@ -357,10 +310,7 @@
 
       <div class="name-row">
         <div class="name">prod <span class="prod-gradient">@skoozuh</span></div>
-        <div class="badge-container">
-          <img src="assets/crownw.png" alt="Owner Badge" />
-          <img src="assets/trophy.png" alt="Trophy Badge" />
-        </div>
+        <!-- badges removed -->
       </div>
 
       <div class="description">
@@ -370,11 +320,7 @@
       <div class="presence-card">
         <img class="avatar" src="https://media.discordapp.net/attachments/1401010039681978381/1401023191757099170/pfp.png" alt="Discord Avatar" />
         <div class="details">
-          <div class="username">
-            skoozuh
-            <span class="badge quest"></span>
-            <span class="badge bravery"></span>
-          </div>
+          <div class="username">skoozuh</div>
         </div>
       </div>
 
@@ -400,52 +346,51 @@
     </div>
   </div>
 
-<script>
-  const wrapper = document.getElementById('cardWrapper');
-  const blurOverlay = document.getElementById('blurOverlay');
-  const audio = document.getElementById('audio');
-  const playPauseBtn = document.getElementById('playPauseBtn');
-  const playPauseIcon = document.getElementById('playPauseIcon');
-  const seekBar = document.getElementById('seekBar');
+  <script>
+    const wrapper = document.getElementById('cardWrapper');
+    const blurOverlay = document.getElementById('blurOverlay');
+    const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playPauseIcon = document.getElementById('playPauseIcon');
+    const seekBar = document.getElementById('seekBar');
 
-  // 3D tilt effect
-  wrapper.addEventListener('mousemove', e => {
-    const rect = wrapper.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    wrapper.style.transform = `rotateX(${y / -18}deg) rotateY(${x / 18}deg)`;
-  });
-  wrapper.addEventListener('mouseleave', () => {
-    wrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
-  });
+    // Reduced 3D tilt effect
+    wrapper.addEventListener('mousemove', e => {
+      const rect = wrapper.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      wrapper.style.transform = `rotateX(${y / -50}deg) rotateY(${x / 50}deg)`;
+    });
+    wrapper.addEventListener('mouseleave', () => {
+      wrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    });
 
-  // Blur overlay click to hide
-  blurOverlay.addEventListener('click', () => {
-    blurOverlay.classList.add('hidden');
-  });
+    // Blur overlay click to hide
+    blurOverlay.addEventListener('click', () => {
+      blurOverlay.classList.add('hidden');
+    });
 
-  // Audio play/pause toggle
-  playPauseBtn.addEventListener('click', () => {
-    if (audio.paused) {
-      audio.play();
-      playPauseIcon.src = "assets/pause.png";
-    } else {
-      audio.pause();
-      playPauseIcon.src = "assets/play.png";
-    }
-  });
+    // Audio play/pause toggle
+    playPauseBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseIcon.src = "assets/pause.png";
+      } else {
+        audio.pause();
+        playPauseIcon.src = "assets/play.png";
+      }
+    });
 
-  // Sync seek bar with audio
-  audio.addEventListener('timeupdate', () => {
-    seekBar.max = audio.duration || 100;
-    seekBar.value = audio.currentTime;
-  });
+    // Sync seek bar with audio
+    audio.addEventListener('timeupdate', () => {
+      seekBar.max = audio.duration || 100;
+      seekBar.value = audio.currentTime;
+    });
 
-  // Seek audio on input
-  seekBar.addEventListener('input', () => {
-    audio.currentTime = seekBar.value;
-  });
-</script>
-
+    // Seek audio on input
+    seekBar.addEventListener('input', () => {
+      audio.currentTime = seekBar.value;
+    });
+  </script>
 </body>
 </html>
