@@ -2,407 +2,258 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>crd | Producer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>grief.bio — Claim your identity</title>
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * {
-      box-sizing: border-box;
-      margin: 0; padding: 0;
+      margin: 0; padding: 0; box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
-      user-select: none;
     }
 
-    body, html {
-      height: 100vh;
-      background: #121214; /* No background.png here */
+    body {
+      background: #121214 url('assets/background.png') no-repeat center center/cover;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(25, 25, 28, 0.9);
+      border-radius: 18px;
+      padding: 40px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+    }
+
+    h1 {
+      font-size: 3rem;
+      background: linear-gradient(90deg, #eee, #888);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    p {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #bbb;
+      margin-bottom: 35px;
+    }
+
+    .cta {
       display: flex;
       justify-content: center;
-      align-items: center;
-      color: #ccc;
-      overflow: hidden;
-      perspective: 900px;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    #blurOverlay {
+    .cta button {
+      background: #ffffff10;
+      border: 1px solid #444;
+      color: #fff;
+      padding: 14px 28px;
+      font-size: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .cta button:hover {
+      background: #ffffff25;
+    }
+
+    .features {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+      text-align: center;
+    }
+
+    .feature {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #333;
+    }
+
+    .feature img {
+      width: 50px;
+      margin-bottom: 12px;
+    }
+
+    .feature p {
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+
+    .modal {
+      display: none;
       position: fixed;
       inset: 0;
-      background: rgba(18, 18, 20, 0.85);
-      backdrop-filter: blur(14px);
-      color: #ddd;
-      font-weight: 700;
-      font-size: 28px;
-      display: flex;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
       justify-content: center;
       align-items: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: #1f1f21;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: #2a2a2c;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+    }
+
+    .modal-content button {
+      margin-top: 14px;
+      width: 100%;
+      padding: 12px;
+      background: #4e4e4e;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: bold;
       cursor: pointer;
-      z-index: 9999;
-      transition: opacity 0.3s ease;
-    }
-    #blurOverlay.hidden {
-      opacity: 0;
-      pointer-events: none;
     }
 
-    .card-wrapper {
-      background: linear-gradient(145deg, #2a2a2c, #1e1e20);
-      border-radius: 28px;
-      padding: 6px;
-      box-shadow:
-        0 0 6px #55555588,       /* Reduced outer glow */
-        inset 0 0 10px #111111;   /* Reduced inset glow */
-      transition: transform 0.3s ease;
-      width: 560px;
-      max-width: 90vw;
+    .close {
+      margin-top: 20px;
+      color: #999;
+      cursor: pointer;
+      font-size: 0.9rem;
     }
 
-    .card {
-      background: rgba(28, 28, 30, 0.7);
-      border-radius: 22px;
-      padding: 30px 35px;
-      box-shadow:
-        inset 0 0 30px rgba(0, 0, 0, 0.85),
-        0 4px 15px rgba(60, 60, 60, 0.4);
-      position: relative;
-      overflow: hidden;
-      color: #bbb;
+    #dashboard {
+      margin-top: 60px;
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    #dashboard h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      color: #fff;
+    }
+
+    .profile-field {
       display: flex;
       flex-direction: column;
-      gap: 18px;
-      z-index: 1;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url('assets/background.png') no-repeat center/cover;
-      filter: blur(9px) brightness(0.4);
-      border-radius: 22px;
-      z-index: 0;
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    .profile-pic {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      border: 3px solid #666666cc;
-      box-shadow: 0 0 15px #555555cc;
-      object-fit: cover;
-      margin-bottom: 8px;
-      align-self: center;
-      background: #222;
-      z-index: 1;
-    }
-
-    .name-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      z-index: 1;
-    }
-
-    .name {
-      font-size: 36px;
-      font-weight: 700;
-      color: #aaa;
-      text-shadow: 0 0 6px #555555aa;
-      background: linear-gradient(135deg, #999999, #666666);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: pulseText 3.5s ease-in-out infinite;
-    }
-
-    @keyframes pulseText {
-      0%, 100% { text-shadow: 0 0 8px #888888cc; }
-      50% { text-shadow: 0 0 16px #bbbbbbdd; }
-    }
-
-    /* New gold gradient for Owner text */
-    .owner-text {
-      font-weight: 700;
-      font-size: 18px;
-      background: linear-gradient(90deg, #d4af37, #f3db6b, #d4af37);
-      background-size: 200% 100%;
-      background-position: 0% 0;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: goldFlow 3.5s linear infinite;
-      display: inline-flex;
-      align-items: center;
       gap: 8px;
     }
-    @keyframes goldFlow {
-      0% { background-position: 0% 0; }
-      100% { background-position: 100% 0; }
-    }
 
-    .description {
-      text-align: center;
-      user-select: text;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .presence-card {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: rgba(150, 150, 150, 0.07);
-      border-radius: 14px;
-      padding: 12px 18px;
-      box-shadow: 0 0 12px rgba(100, 100, 100, 0.2);
-      backdrop-filter: blur(5px);
-      color: #aaa;
-      user-select: none;
-      z-index: 1;
-    }
-
-    .presence-card .avatar {
-      width: 62px;
-      height: 62px;
-      border-radius: 50%;
-      border: 2px solid #555555cc;
-      object-fit: cover;
-      box-shadow: 0 0 14px #444444cc;
-      background: #333;
-    }
-
-    .presence-card .details {
-      font-size: 14px;
-      color: #888;
-      font-weight: 600;
-      user-select: text;
-    }
-
-    .presence-card .username {
-      font-weight: 700;
-      color: #bbb;
-    }
-
-    .music-player {
-      background: rgba(150, 150, 150, 0.12);
-      border-radius: 16px;
-      padding: 15px 20px;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 0 16px rgba(120, 120, 120, 0.3);
+    .profile-field label {
+      font-size: 0.9rem;
       color: #ccc;
-      user-select: none;
-      z-index: 1;
     }
 
-    .controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .profile-field input, .profile-field textarea {
+      padding: 10px;
+      background: #1e1e1f;
+      border: 1px solid #333;
+      border-radius: 10px;
+      color: #eee;
     }
 
-    .track-info {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-weight: 600;
-    }
-
-    #track-title {
-      font-size: 16px;
-      color: #ddd;
-    }
-
-    #track-artist {
-      font-size: 14px;
-      color: #aaa;
-      font-weight: 400;
-    }
-
-    button#playPauseBtn {
-      background: none;
+    #dashboard button {
+      background: #333;
+      padding: 12px;
       border: none;
+      color: white;
+      border-radius: 10px;
       cursor: pointer;
-      padding: 0;
-      transition: transform 0.3s ease;
-      filter: drop-shadow(0 0 3px #888888cc);
-    }
-    button#playPauseBtn:hover {
-      transform: scale(1.15);
-    }
-    button#playPauseBtn img {
-      width: 30px;
-      height: 30px;
-      filter: grayscale(20%) brightness(120%);
-    }
-
-    #seekBar {
-      width: 100%;
-      margin-top: 14px;
-      height: 6px;
-      border-radius: 12px;
-      background: linear-gradient(to right, #999999cc 0%, #555555cc 100%);
-      -webkit-appearance: none;
-      cursor: pointer;
-      outline: none;
-    }
-
-    #seekBar::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 14px;
-      height: 14px;
-      background: #bbbbbbdd;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 0 6px #888888cc;
-      border: 2px solid #999999cc;
-      transition: background-color 0.25s ease;
-    }
-    #seekBar::-webkit-slider-thumb:hover {
-      background: #cccccc;
-    }
-
-    .social-logos {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
-      gap: 20px;
-      opacity: 0.25;
-      transition: opacity 0.3s ease;
-      user-select: none;
-    }
-    .social-logos:hover {
-      opacity: 0.65;
-    }
-    .social-icon {
-      width: 38px;
-      height: 38px;
-      filter: drop-shadow(0 0 4px #666666cc);
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-    .social-icon:hover {
-      transform: scale(1.2);
-    }
-
-    @media (max-width: 480px) {
-      .card-wrapper {
-        width: 95vw;
-      }
-      .profile-pic {
-        width: 100px;
-        height: 100px;
-      }
-      .name {
-        font-size: 28px;
-      }
-      .description {
-        font-size: 16px;
-      }
-      .presence-card .avatar {
-        width: 48px;
-        height: 48px;
-      }
-      .music-player {
-        padding: 12px 15px;
-      }
-      #playPauseBtn img {
-        width: 26px;
-        height: 26px;
-      }
-      .social-icon {
-        width: 28px;
-        height: 28px;
-      }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>grief.bio</h1>
+    <p>Claim your username. Customize your profile. Flex your badge.<br /> First come, first serve. UID #1–100000.</p>
 
-  <div id="blurOverlay">grief</div>
+    <div class="cta">
+      <button onclick="openModal('register')">Register</button>
+      <button onclick="openModal('login')">Login</button>
+      <button onclick="openDashboard()">Open Dashboard</button>
+    </div>
 
-  <div class="card-wrapper" id="cardWrapper">
-    <div class="card">
-      <img src="assets/pfp.png" alt="Profile Picture" class="profile-pic" />
+    <div class="features">
+      <div class="feature"><img src="assets/creator.png" alt=""><p>Custom PFP + Cursor</p></div>
+      <div class="feature"><img src="assets/artist.png" alt=""><p>Background & Music</p></div>
+      <div class="feature"><img src="assets/booster.png" alt=""><p>Premium Themes</p></div>
+      <div class="feature"><img src="assets/staff.png" alt=""><p>Verified Badges</p></div>
+      <div class="feature"><img src="assets/oguser.png" alt=""><p>Unique UID System</p></div>
+      <div class="feature"><img src="assets/donator.png" alt=""><p>Supporter Tiers</p></div>
+    </div>
 
-      <div class="name-row">
-        <div class="name">prod <span class="prod-gradient">@skoozuh</span></div>
-      </div>
+    <div id="dashboard">
+      <h2>Profile Editor</h2>
+      <div class="profile-field"><label>Username</label><input type="text" placeholder="yourname" /></div>
+      <div class="profile-field"><label>Bio</label><textarea rows="3" placeholder="Write something..."></textarea></div>
+      <div class="profile-field"><label>Profile Picture URL</label><input type="text" placeholder="https://" /></div>
+      <div class="profile-field"><label>Background Image URL</label><input type="text" placeholder="https://" /></div>
+      <div class="profile-field"><label>Cursor URL</label><input type="text" placeholder="https://" /></div>
+      <div class="profile-field"><label>Music Embed (Spotify/YT)</label><input type="text" placeholder="Embed URL" /></div>
+      <div class="profile-field"><label>Social Links (comma separated)</label><input type="text" placeholder="https://x.com/user, https://discord.gg/abc" /></div>
+      <button>Save Profile</button>
+    </div>
+  </div>
 
-      <div class="description">
-        <div class="owner-text">Owner</div>
-        <img src="assets/crownw.png" alt="Crown" style="width: 22px; height: 22px; user-select: none;" />
-      </div>
+  <div id="registerModal" class="modal">
+    <div class="modal-content">
+      <h2>Register</h2>
+      <input type="text" placeholder="Username (unique)" />
+      <input type="email" placeholder="Email" />
+      <input type="password" placeholder="Password" />
+      <button>Create Account</button>
+      <div class="close" onclick="closeModal('register')">Cancel</div>
+    </div>
+  </div>
 
-      <div class="presence-card">
-        <img class="avatar" src="assets/pfp.png" alt="Profile Avatar" />
-        <div class="details">
-          <div class="username">skoozuh</div>
-        </div>
-      </div>
-
-      <div class="music-player">
-        <div class="controls">
-          <div class="track-info">
-            <span id="track-title">Switchlanes</span>
-            <span id="track-artist">LUCKI</span>
-          </div>
-          <button id="playPauseBtn" aria-label="Play/Pause">
-            <img id="playPauseIcon" src="assets/play.png" alt="Play Icon" />
-          </button>
-        </div>
-        <input type="range" id="seekBar" min="0" max="100" value="0" step="1" aria-label="Audio Seek Bar" />
-        <audio id="audio" src="assets/lucki.mp3"></audio>
-      </div>
-
-      <div class="social-logos">
-        <a href="https://instagram.com/deadbeforenight" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <img src="assets/iglogo.png" alt="Instagram Logo" class="social-icon" />
-        </a>
-      </div>
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <h2>Login</h2>
+      <input type="text" placeholder="Username" />
+      <input type="password" placeholder="Password" />
+      <button>Login</button>
+      <div class="close" onclick="closeModal('login')">Cancel</div>
     </div>
   </div>
 
   <script>
-    const wrapper = document.getElementById('cardWrapper');
-    const blurOverlay = document.getElementById('blurOverlay');
-    const audio = document.getElementById('audio');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const playPauseIcon = document.getElementById('playPauseIcon');
-    const seekBar = document.getElementById('seekBar');
+    function openModal(type) {
+      document.getElementById(`${type}Modal`).style.display = 'flex';
+    }
 
-    // Removed 3D tilt - no event listeners for mousemove or mouseleave
+    function closeModal(type) {
+      document.getElementById(`${type}Modal`).style.display = 'none';
+    }
 
-    // Blur overlay click to hide
-    blurOverlay.addEventListener('click', () => {
-      blurOverlay.classList.add('hidden');
-    });
-
-    // Audio play/pause toggle
-    playPauseBtn.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play();
-        playPauseIcon.src = "assets/pause.png";
-      } else {
-        audio.pause();
-        playPauseIcon.src = "assets/play.png";
-      }
-    });
-
-    // Sync seek bar with audio
-    audio.addEventListener('timeupdate', () => {
-      seekBar.max = audio.duration || 100;
-      seekBar.value = audio.currentTime;
-    });
-
-    // Seek audio on input
-    seekBar.addEventListener('input', () => {
-      audio.currentTime = seekBar.value;
-    });
+    function openDashboard() {
+      document.getElementById('dashboard').style.display = 'flex';
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
   </script>
 </body>
 </html>
