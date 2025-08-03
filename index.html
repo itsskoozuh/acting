@@ -154,23 +154,28 @@
     color: #999;
   }
 
-  /* Updated badge container and badges */
-
+  /* New badge container and badges style */
   .badge-container {
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  padding: 6px 12px;
-  border-radius: 24px;
-  background: transparent; /* no background */
-  border: 2px solid transparent;
-  position: relative;
-  background-image: linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
-  background-origin: border-box;
-  background-clip: border-box;
-  animation: gradientGlow 3s linear infinite;
-  box-shadow: none;
-}
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    padding: 6px 12px;
+    border-radius: 24px;
+    position: relative;
+    background: transparent;
+    z-index: 0;
+  }
+
+  .badge-container::before {
+    content: "";
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    border-radius: 26px;
+    background: linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
+    background-size: 200% 200%;
+    animation: gradientGlow 3s linear infinite;
+    z-index: -1;
+  }
 
   .badge-container img {
     position: relative;
@@ -180,23 +185,10 @@
     padding: 0;
     margin-left: 8px;
     margin-right: 8px;
-    background: transparent; /* no bg */
+    background: transparent;
     box-shadow: none;
     object-fit: contain;
     z-index: 1;
-  }
-
-  .badge-container::before {
-    content: none !important;
-  }
-
-  @keyframes gradientGlow {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 100% 50%;
-    }
   }
 
   .badge.quest {
@@ -211,6 +203,15 @@
     margin-left: 1px;
     filter: none;
     box-shadow: none;
+  }
+
+  @keyframes gradientGlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
   }
 
   .music-player {
