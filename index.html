@@ -170,48 +170,50 @@
   }
 
   .badge-container img {
-    width: 20px;
-    height: 20px;
-    border-radius: 6px; /* Rounded corners */
-    margin-right: 6px;
-    margin-left: 2px;
-    object-fit: contain;
-    filter: none;
-    box-shadow: none;
-    position: relative;
-    padding: 4px; /* space for border */
-    z-index: 1;
-  }
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 20px; /* pill shape */
+  padding: 6px; /* space for border */
+  margin-left: 8px;
+  margin-right: 8px;
+  background: #111; /* background behind the badge */
+  z-index: 1;
+  box-shadow: 0 0 8px rgba(30, 144, 255, 0.6);
+  object-fit: contain;
+}
 
-  /* Animated gradient border for badges */
-  .badge-container img::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border-radius: 10px;
-    padding: 2px;
-    background: linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
-    background-size: 400% 400%;
-    animation: gradientBorder 3s ease infinite;
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    z-index: 0;
-  }
+/* Create animated gradient border using ::before */
+.badge-container img::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 20px;
+  padding: 2px; /* border thickness */
+  background: linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
+  background-size: 400% 400%;
+  animation: gradientGlow 3s ease infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  z-index: 0;
+  filter: drop-shadow(0 0 5px #1e90ff);
+}
 
-  @keyframes gradientBorder {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+/* Gradient animation */
+@keyframes gradientGlow {
+  0% {
+    background-position: 0% 50%;
   }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
   .badge.quest {
     background-image: url('assets/quest.png');
