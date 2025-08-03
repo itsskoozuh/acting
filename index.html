@@ -107,14 +107,14 @@
   }
 
   .prod-gradient {
-  background: linear-gradient(135deg, #1e90ff, #00bfff);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px rgba(30, 144, 255, 0.8);
-  animation: borderScroll 3s ease-in-out infinite alternate;
-  display: inline-block;
-}
+    background: linear-gradient(135deg, #1e90ff, #00bfff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(30, 144, 255, 0.8);
+    animation: borderScroll 3s ease-in-out infinite alternate;
+    display: inline-block;
+  }
 
   .description {
     font-size: 16px;
@@ -154,66 +154,55 @@
     color: #999;
   }
 
+  /* Updated badge container and badges */
+
   .badge-container {
     display: flex;
     align-items: center;
     margin-left: 10px;
-    padding: 5px;
-    border-radius: 16px;
-    border: none;
+    padding: 6px 12px; /* padding inside the border */
+    border-radius: 24px; /* round corners on container */
     background: transparent;
+    border: 2px solid transparent;
     position: relative;
-  }
-
-  .badge-container::before {
-    content: none;
+    box-shadow: 0 0 8px rgba(30, 144, 255, 0.7); /* subtle blue glow */
+    background-image: 
+      linear-gradient(#111, #111), /* solid bg under border for contrast */
+      linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff); /* animated gradient border */
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    animation: gradientGlow 3s ease infinite;
   }
 
   .badge-container img {
-  position: relative;
-  width: 24px;
-  height: 24px;
-  border-radius: 20px; /* pill shape */
-  padding: 6px; /* space for border */
-  margin-left: 8px;
-  margin-right: 8px;
-  background: #111; /* background behind the badge */
-  z-index: 1;
-  box-shadow: 0 0 8px rgba(30, 144, 255, 0.6);
-  object-fit: contain;
-}
+    position: relative;
+    width: 28px;
+    height: 28px;
+    border-radius: 20px; /* pill shape */
+    padding: 0;
+    margin-left: 8px;
+    margin-right: 8px;
+    background: transparent; /* remove black bg */
+    box-shadow: none; /* remove glow from each badge */
+    object-fit: contain;
+    z-index: 1;
+  }
 
-/* Create animated gradient border using ::before */
-.badge-container img::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border-radius: 20px;
-  padding: 2px; /* border thickness */
-  background: linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
-  background-size: 400% 400%;
-  animation: gradientGlow 3s ease infinite;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: destination-out;
-  mask-composite: exclude;
-  z-index: 0;
-  filter: drop-shadow(0 0 5px #1e90ff);
-}
+  .badge-container::before {
+    content: none !important;
+  }
 
-/* Gradient animation */
-@keyframes gradientGlow {
-  0% {
-    background-position: 0% 50%;
+  @keyframes gradientGlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 
   .badge.quest {
     background-image: url('assets/quest.png');
