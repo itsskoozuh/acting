@@ -3,7 +3,7 @@
 <head>
  <meta charset="UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1" />
- <title>crd | @skoozuh</title>
+ <title>crd | Producer</title>
  <link rel="icon" type="image/png" href="assets/favicon.png" />
  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
@@ -49,7 +49,7 @@
     padding: 4px;
     border-radius: 24px;
     background: linear-gradient(135deg, #444, #222);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* subtle outer shadow */
     display: inline-block;
     transition: transform 0.2s ease;
     transform-style: preserve-3d;
@@ -107,14 +107,14 @@
   }
 
   .prod-gradient {
-    background: linear-gradient(135deg, #1e90ff, #00bfff);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 10px rgba(30, 144, 255, 0.8);
-    animation: borderScroll 3s ease-in-out infinite alternate;
-    display: inline-block;
-  }
+  background: linear-gradient(135deg, #1e90ff, #00bfff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(30, 144, 255, 0.8);
+  animation: borderScroll 3s ease-in-out infinite alternate;
+  display: inline-block;
+}
 
   .description {
     font-size: 16px;
@@ -154,33 +154,14 @@
     color: #999;
   }
 
-  /* Badge container with thin animated gradient border only */
-  .badge-container {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 6px;
-    padding: 4px 10px;
-    border-radius: 9999px;
-    border: 3px solid;
-    border-image-slice: 1;
-    border-image-source: linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
-    background: transparent;
-    animation: gradientBorder 3s linear infinite;
-    position: relative;
-    z-index: 0;
-  }
-
-  .badge-container img {
-    width: 22px;
-    height: 22px;
-    border-radius: 0;
-    margin-left: 6px;
-    margin-right: 6px;
-    background: transparent !important;
-    box-shadow: none !important;
-    object-fit: contain;
-    z-index: 1;
-    border: none !important;
+  .badge {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 0px;
+    background-size: cover;
+    background-position: center;
+    vertical-align: middle;
   }
 
   .badge.quest {
@@ -195,18 +176,6 @@
     margin-left: 1px;
     filter: none;
     box-shadow: none;
-  }
-
-  @keyframes gradientBorder {
-    0% {
-      border-image-source: linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
-    }
-    50% {
-      border-image-source: linear-gradient(90deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
-    }
-    100% {
-      border-image-source: linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
-    }
   }
 
   .music-player {
@@ -304,6 +273,32 @@
     height: 8px;
   }
 
+  .badge-container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 16px;
+  border: none;
+  background: transparent;
+  position: relative;
+}
+
+  .badge-container::before {
+    content: none;
+  }
+
+  .badge-container img {
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  margin-right: 6px;
+  margin-left: 2px;
+  object-fit: contain;
+  filter: none;
+  box-shadow: none;
+}
+
   .social-logos {
     display: flex;
     justify-content: center;
@@ -382,7 +377,7 @@
      <img src="assets/pfp.png" alt="pfp" class="profile-pic" id="profilePic" />
      <div style="display: flex; align-items: center;">
        <div class="name" id="profileName">
-         @skoozuh <span class="prod-gradient"></span>
+         prod <span class="prod-gradient">@skoozuh</span>
        </div>
        <div class="badge-container">
          <img src="assets/crownw.png" alt="owner" />
@@ -391,14 +386,14 @@
      </div>
 
      <div class="description" id="profileDescription">
-        <br />
+       Owner <br /> @skoozuh
      </div>
 
      <div class="presence-card">
        <img class="avatar" src="https://media.discordapp.net/attachments/1401010039681978381/1401023191757099170/pfp.png?ex=688ec406&is=688d7286&hm=f481589859fb09df918d82265f354b78dd08bedf1fa7e27f78a4c6ca467dcde2&format=webp&quality=lossless&width=1408&height=1408&" alt="Avatar" />
        <div class="details">
          <div class="username">
-           UID: 1 • Account Created: 2019
+           skoozuh
            <span class="badge quest"></span>
            <span class="badge bravery"></span>
          </div>
