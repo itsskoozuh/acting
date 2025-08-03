@@ -50,11 +50,9 @@
       border-radius: 28px;
       padding: 6px;
       box-shadow:
-        0 0 10px #55555588,
-        inset 0 0 15px #111111;
+        0 0 6px #55555588,       /* Reduced outer glow */
+        inset 0 0 10px #111111;   /* Reduced inset glow */
       transition: transform 0.3s ease;
-      transform-style: preserve-3d;
-      will-change: transform;
       width: 560px;
       max-width: 90vw;
     }
@@ -124,13 +122,33 @@
       50% { text-shadow: 0 0 16px #bbbbbbdd; }
     }
 
+    /* New gold gradient for Owner text */
+    .owner-text {
+      font-weight: 700;
+      font-size: 18px;
+      background: linear-gradient(90deg, #d4af37, #f3db6b, #d4af37);
+      background-size: 200% 100%;
+      background-position: 0% 0;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: goldFlow 3.5s linear infinite;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    @keyframes goldFlow {
+      0% { background-position: 0% 0; }
+      100% { background-position: 100% 0; }
+    }
+
     .description {
-      font-size: 16px;
       text-align: center;
-      color: #999;
-      line-height: 1.4;
       user-select: text;
       z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
     }
 
     .presence-card {
@@ -283,7 +301,7 @@
         font-size: 28px;
       }
       .description {
-        font-size: 14px;
+        font-size: 16px;
       }
       .presence-card .avatar {
         width: 48px;
@@ -316,7 +334,8 @@
       </div>
 
       <div class="description">
-        Owner<br />@skoozuh
+        <div class="owner-text">Owner</div>
+        <img src="assets/crownw.png" alt="Crown" style="width: 22px; height: 22px; user-select: none;" />
       </div>
 
       <div class="presence-card">
@@ -356,16 +375,7 @@
     const playPauseIcon = document.getElementById('playPauseIcon');
     const seekBar = document.getElementById('seekBar');
 
-    // Subtle 3D tilt effect
-    wrapper.addEventListener('mousemove', e => {
-      const rect = wrapper.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      wrapper.style.transform = `rotateX(${y / -50}deg) rotateY(${x / 50}deg)`;
-    });
-    wrapper.addEventListener('mouseleave', () => {
-      wrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
-    });
+    // Removed 3D tilt - no event listeners for mousemove or mouseleave
 
     // Blur overlay click to hide
     blurOverlay.addEventListener('click', () => {
