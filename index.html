@@ -79,6 +79,22 @@
    transition: transform 0.1s ease, box-shadow 0.2s ease;
    transform-style: preserve-3d;
    will-change: transform;
+   position: relative;
+   z-index: 1;
+ }
+
+ .card::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: url('assets/background.png') center/cover no-repeat;
+   opacity: 0.1;
+   filter: blur(4px);
+   border-radius: 20px;
+   z-index: 0;
  }
 
  .profile-pic {
@@ -367,148 +383,4 @@
  </style>
 </head>
 
-<body>
-
-<div id="blurOverlay">click to continue</div>
-
- <div class="card-wrapper" id="cardWrapper">
-   <div class="card" id="card">
-     <img src="assets/pfp.png" alt="pfp" class="profile-pic" id="profilePic" />
-     <div style="display: flex; align-items: center;">
-       <div class="name" id="profileName">
-         prod <span class="prod-gradient">@skoozuh</span>
-       </div>
-       <div class="badge-container">
-         <img src="assets/crownw.png" alt="owner" />
-         <img src="assets/trophy.png" alt="owner" />
-       </div>
-     </div>
-
-     <div class="description" id="profileDescription">
-       Owner <br /> @skoozuh
-     </div>
-
-     <div class="presence-card">
-       <img class="avatar" src="https://media.discordapp.net/attachments/1401010039681978381/1401023191757099170/pfp.png?ex=688ec406&is=688d7286&hm=f481589859fb09df918d82265f354b78dd08bedf1fa7e27f78a4c6ca467dcde2&format=webp&quality=lossless&width=1408&height=1408&" alt="Avatar" />
-       <div class="details">
-         <div class="username">
-           skoozuh
-           <span class="badge quest"></span>
-           <span class="badge bravery"></span>
-         </div>
-       </div>
-     </div>
-
-     <div class="music-player">
-       <div class="controls">
-         <div class="track-info">
-           <div style="display: flex; align-items: center; gap: 10px;">
-             <span id="track-title">Switchlanes By - LUCKI</span>
-             <span id="track-duration" style="font-size: 13px; color: rgba(255, 255, 255, 0.5);">0:00</span>
-           </div>
-           <span id="track-artist" class="artist-name">LUCKI</span>
-         </div>
-         <button id="playPauseBtn">
-           <img id="playPauseIcon" src="assets/play.png" alt="Play" />
-         </button>
-       </div>
-       <input type="range" id="seekBar" value="0" min="0" step="1" />
-       <audio id="audio" src="assets/lucki.mp3"></audio>
-     </div>
-
-     <div class="social-logos">
-       <a href="https://instagram.com/deadbeforenight" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-         <img src="assets/iglogo.png" alt="Instagram" class="social-icon" />
-       </a>
-     </div>
-   </div>
- </div>
-
-<script>
- const wrapper = document.getElementById('cardWrapper');
- const blurOverlay = document.getElementById('blurOverlay');
-
- wrapper.addEventListener('mousemove', (e) => {
-   const rect = wrapper.getBoundingClientRect();
-   const x = e.clientX - rect.left;
-   const y = e.clientY - rect.top;
-   const centerX = rect.width / 2;
-   const centerY = rect.height / 2;
-   const rotateX = ((y - centerY) / centerY) * 8;
-   const rotateY = ((x - centerX) / centerX) * 8;
-   wrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
- });
-
- wrapper.addEventListener('mouseleave', () => {
-   wrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
- });
-
- blurOverlay.addEventListener('click', () => {
-   blurOverlay.classList.add('hidden');
- });
-
- function formatTime(seconds) {
-   const mins = Math.floor(seconds / 60);
-   const secs = Math.floor(seconds % 60);
-   return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
- }
-
- const audio = document.getElementById('audio');
- const playPauseBtn = document.getElementById('playPauseBtn');
- const playPauseIcon = document.getElementById('playPauseIcon');
- const trackTitle = document.getElementById('track-title');
- const trackArtist = document.getElementById('track-artist');
- const seekBar = document.getElementById('seekBar');
- const trackDuration = document.getElementById('track-duration');
-
- const song = {
-   title: "Switchlanes By - LUCKI",
-   artist: "LUCKI",
-   url: "assets/lucki.mp3"
- };
-
- trackTitle.textContent = song.title;
- trackArtist.textContent = song.artist;
- audio.src = song.url;
- audio.load();
-
- let isPlaying = false;
-
- playPauseBtn.addEventListener('click', () => {
-   playPauseIcon.style.opacity = 0;
-
-   setTimeout(() => {
-     if (isPlaying) {
-       audio.pause();
-       playPauseIcon.src = "assets/play.png";
-     } else {
-       audio.play().catch((err) => console.error("Playback failed:", err));
-       playPauseIcon.src = "assets/pause.png";
-     }
-
-     isPlaying = !isPlaying;
-     playPauseIcon.style.opacity = 1;
-   }, 200);
- });
-
- audio.addEventListener('loadedmetadata', () => {
-   trackDuration.textContent = formatTime(audio.duration);
- });
-
- audio.addEventListener('timeupdate', () => {
-   if (!isNaN(audio.duration)) {
-     seekBar.max = audio.duration;
-     seekBar.value = audio.currentTime;
-     const fillPercent = (audio.currentTime / audio.duration) * 100;
-     seekBar.style.background = `linear-gradient(to right, rgba(255, 255, 255, 0.267) ${fillPercent}%, rgba(255, 255, 255, 0.165) ${fillPercent}%)`;
-     trackDuration.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
-   }
- });
-
- seekBar.addEventListener('input', () => {
-   audio.currentTime = seekBar.value;
- });
-</script>
-
-</body>
-</html>
+<!-- rest of your HTML continues... -->
