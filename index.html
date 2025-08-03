@@ -1,259 +1,514 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>grief.bio — Claim your identity</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      background: #121214 url('assets/background.png') no-repeat center center/cover;
-      color: #e0e0e0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 30px 20px;
-    }
-
-    .container {
-      max-width: 900px;
-      width: 100%;
-      background: rgba(25, 25, 28, 0.9);
-      border-radius: 18px;
-      padding: 40px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 25px rgba(0,0,0,0.4);
-    }
-
-    h1 {
-      font-size: 3rem;
-      background: linear-gradient(90deg, #eee, #888);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-align: center;
-      margin-bottom: 18px;
-    }
-
-    p {
-      text-align: center;
-      font-size: 1.1rem;
-      color: #bbb;
-      margin-bottom: 35px;
-    }
-
-    .cta {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .cta button {
-      background: #ffffff10;
-      border: 1px solid #444;
-      color: #fff;
-      padding: 14px 28px;
-      font-size: 1rem;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .cta button:hover {
-      background: #ffffff25;
-    }
-
-    .features {
-      margin-top: 50px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 20px;
-      text-align: center;
-    }
-
-    .feature {
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 16px;
-      padding: 20px;
-      border: 1px solid #333;
-    }
-
-    .feature img {
-      width: 50px;
-      margin-bottom: 12px;
-    }
-
-    .feature p {
-      font-size: 0.95rem;
-      color: #aaa;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(8px);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .modal-content {
-      background: #1f1f21;
-      padding: 30px;
-      border-radius: 16px;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-    }
-
-    .modal-content input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      background: #2a2a2c;
-      border: none;
-      border-radius: 10px;
-      color: #fff;
-    }
-
-    .modal-content button {
-      margin-top: 14px;
-      width: 100%;
-      padding: 12px;
-      background: #4e4e4e;
-      border: none;
-      border-radius: 10px;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .close {
-      margin-top: 20px;
-      color: #999;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-
-    #dashboard {
-      margin-top: 60px;
-      display: none;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    #dashboard h2 {
-      text-align: center;
-      font-size: 1.8rem;
-      color: #fff;
-    }
-
-    .profile-field {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .profile-field label {
-      font-size: 0.9rem;
-      color: #ccc;
-    }
-
-    .profile-field input, .profile-field textarea {
-      padding: 10px;
-      background: #1e1e1f;
-      border: 1px solid #333;
-      border-radius: 10px;
-      color: #eee;
-    }
-
-    #dashboard button {
-      background: #333;
-      padding: 12px;
-      border: none;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>grief.bio - Bio Link Platform</title>
+<style>
+  /* Basic reset & fonts */
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #121214;
+    color: #ddd;
+    margin: 0; padding: 0;
+    min-height: 100vh;
+  }
+  a {
+    color: #66ccff;
+    text-decoration: none;
+  }
+  header {
+    padding: 1rem;
+    background: #1f1f23;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header h1 {
+    margin: 0; font-weight: 700;
+  }
+  nav a {
+    margin-left: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .hidden {
+    display: none;
+  }
+  main {
+    padding: 1rem;
+    max-width: 900px;
+    margin: 1rem auto;
+  }
+  input, textarea, select {
+    width: 100%;
+    padding: 0.6rem;
+    margin: 0.3rem 0 1rem;
+    border-radius: 6px;
+    border: none;
+    background: #222;
+    color: #ddd;
+  }
+  label {
+    font-weight: 600;
+  }
+  button {
+    padding: 0.7rem 1.2rem;
+    background: #3366ff;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #5599ff;
+  }
+  .btn-danger {
+    background: #cc4444;
+  }
+  .btn-danger:hover {
+    background: #dd5555;
+  }
+  .user-list {
+    margin-top: 1rem;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .user-list th, .user-list td {
+    border: 1px solid #444;
+    padding: 0.5rem;
+    text-align: left;
+  }
+  .badge {
+    display: inline-block;
+    background: #66ccff;
+    color: #121214;
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    margin-right: 4px;
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>grief.bio</h1>
-    <p>Claim your username. Customize your profile. Flex your badge.<br /> First come, first serve. UID #1–100000.</p>
 
-    <div class="cta">
-      <button onclick="openModal('register')">Register</button>
-      <button onclick="openModal('login')">Login</button>
-      <button onclick="openDashboard()">Open Dashboard</button>
-    </div>
+<header>
+  <h1>grief.bio</h1>
+  <nav id="navLinks">
+    <!-- Links updated by JS -->
+  </nav>
+</header>
 
-    <div class="features">
-      <div class="feature"><img src="assets/creator.png" alt=""><p>Custom PFP + Cursor</p></div>
-      <div class="feature"><img src="assets/artist.png" alt=""><p>Background & Music</p></div>
-      <div class="feature"><img src="assets/booster.png" alt=""><p>Premium Themes</p></div>
-      <div class="feature"><img src="assets/staff.png" alt=""><p>Verified Badges</p></div>
-      <div class="feature"><img src="assets/oguser.png" alt=""><p>Unique UID System</p></div>
-      <div class="feature"><img src="assets/donator.png" alt=""><p>Supporter Tiers</p></div>
-    </div>
+<main>
+  <!-- Register Page -->
+  <section id="registerPage" class="hidden">
+    <h2>Register</h2>
+    <form id="registerForm">
+      <label for="regUsername">Username</label>
+      <input type="text" id="regUsername" required minlength="3" maxlength="20" pattern="^[a-zA-Z0-9_]+$" />
+      
+      <label for="regEmail">Email</label>
+      <input type="email" id="regEmail" required />
+      
+      <label for="regPassword">Password</label>
+      <input type="password" id="regPassword" required minlength="6" />
+      
+      <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="#login">Login here</a></p>
+    <p id="regMessage" style="color: #f66;"></p>
+  </section>
 
-    <div id="dashboard">
-      <h2>Profile Editor</h2>
-      <div class="profile-field"><label>Username</label><input type="text" placeholder="yourname" /></div>
-      <div class="profile-field"><label>Bio</label><textarea rows="3" placeholder="Write something..."></textarea></div>
-      <div class="profile-field"><label>Profile Picture URL</label><input type="text" placeholder="https://" /></div>
-      <div class="profile-field"><label>Background Image URL</label><input type="text" placeholder="https://" /></div>
-      <div class="profile-field"><label>Cursor URL</label><input type="text" placeholder="https://" /></div>
-      <div class="profile-field"><label>Music Embed (Spotify/YT)</label><input type="text" placeholder="Embed URL" /></div>
-      <div class="profile-field"><label>Social Links (comma separated)</label><input type="text" placeholder="https://x.com/user, https://discord.gg/abc" /></div>
-      <button>Save Profile</button>
-    </div>
-  </div>
+  <!-- Login Page -->
+  <section id="loginPage" class="hidden">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label for="loginUsername">Username</label>
+      <input type="text" id="loginUsername" required />
+      
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" required />
+      
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="#register">Register here</a></p>
+    <p id="loginMessage" style="color: #f66;"></p>
+  </section>
 
-  <div id="registerModal" class="modal">
-    <div class="modal-content">
-      <h2>Register</h2>
-      <input type="text" placeholder="Username (unique)" />
-      <input type="email" placeholder="Email" />
-      <input type="password" placeholder="Password" />
-      <button>Create Account</button>
-      <div class="close" onclick="closeModal('register')">Cancel</div>
-    </div>
-  </div>
+  <!-- Dashboard Page -->
+  <section id="dashboardPage" class="hidden">
+    <h2>Your Dashboard</h2>
+    <p>Welcome, <span id="dashUsername"></span>! (UID: <span id="dashUID"></span>)</p>
 
-  <div id="loginModal" class="modal">
-    <div class="modal-content">
-      <h2>Login</h2>
-      <input type="text" placeholder="Username" />
-      <input type="password" placeholder="Password" />
-      <button>Login</button>
-      <div class="close" onclick="closeModal('login')">Cancel</div>
-    </div>
-  </div>
+    <h3>Edit Your Bio</h3>
+    <textarea id="dashBio" rows="3" maxlength="250" placeholder="Write something about yourself..."></textarea>
 
-  <script>
-    function openModal(type) {
-      document.getElementById(`${type}Modal`).style.display = 'flex';
+    <h3>Social Links (comma separated)</h3>
+    <input type="text" id="dashSocialLinks" placeholder="https://twitter.com/yourhandle, https://instagram.com/you" />
+
+    <h3>Music Embed URL (Spotify, Soundcloud, etc.)</h3>
+    <input type="url" id="dashMusicEmbed" placeholder="https://open.spotify.com/track/..." />
+
+    <h3>Custom Cursor URL</h3>
+    <input type="url" id="dashCursorUrl" placeholder="https://your-cursor-url.png" />
+
+    <h3>Upload Profile Picture</h3>
+    <input type="file" id="dashUploadPFP" accept="image/*" />
+
+    <h3>Upload Background</h3>
+    <input type="file" id="dashUploadBG" accept="image/*" />
+
+    <button id="saveProfileBtn">Save Profile</button>
+    <p id="dashMessage" style="color: #6f6;"></p>
+
+    <button id="logoutBtn" style="margin-top: 1rem;">Logout</button>
+  </section>
+
+  <!-- Admin Page -->
+  <section id="adminPage" class="hidden">
+    <h2>Admin Panel</h2>
+    <p><strong>Manage Users</strong></p>
+    <table class="user-list" aria-label="User list for admin">
+      <thead>
+        <tr>
+          <th>UID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Banned</th>
+          <th>Badges</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="adminUserList"></tbody>
+    </table>
+    <button id="adminLogoutBtn" style="margin-top: 1rem;">Logout</button>
+    <p id="adminMessage" style="color: #f66;"></p>
+  </section>
+
+</main>
+
+<script>
+const apiBase = 'http://localhost:5000/api'; // Change if backend on different url
+
+// === UTILS ===
+function showPage(id) {
+  ['registerPage', 'loginPage', 'dashboardPage', 'adminPage'].forEach(pid => {
+    document.getElementById(pid).classList.toggle('hidden', pid !== id);
+  });
+  updateNav();
+}
+
+function updateNav() {
+  const nav = document.getElementById('navLinks');
+  nav.innerHTML = '';
+  const token = localStorage.getItem('token');
+  if (!token) {
+    nav.innerHTML = '<a href="#login">Login</a> <a href="#register">Register</a>';
+  } else {
+    nav.innerHTML = `
+      <a href="#dashboard">Dashboard</a>
+      ${isAdmin() ? '<a href="#admin">Admin</a>' : ''}
+      <a href="#" id="logoutLink">Logout</a>
+    `;
+    document.getElementById('logoutLink').onclick = e => {
+      e.preventDefault();
+      logout();
+    };
+  }
+}
+
+function isAdmin() {
+  const adminFlag = localStorage.getItem('isAdmin');
+  return adminFlag === 'true';
+}
+
+function logout() {
+  localStorage.clear();
+  showPage('loginPage');
+}
+
+// --- HANDLE HASH ROUTING ---
+function handleRoute() {
+  const hash = location.hash.toLowerCase() || '#login';
+  const token = localStorage.getItem('token');
+
+  if (!token && hash !== '#login' && hash !== '#register') {
+    location.hash = '#login';
+    return;
+  }
+  if (token && (hash === '#login' || hash === '#register')) {
+    location.hash = '#dashboard';
+    return;
+  }
+  if (hash === '#dashboard' && !token) {
+    location.hash = '#login';
+    return;
+  }
+  if (hash === '#admin' && (!token || !isAdmin())) {
+    location.hash = '#dashboard';
+    return;
+  }
+
+  switch (hash) {
+    case '#register': showPage('registerPage'); break;
+    case '#login': showPage('loginPage'); break;
+    case '#dashboard': showPage('dashboardPage'); loadDashboard(); break;
+    case '#admin': showPage('adminPage'); loadAdminPanel(); break;
+    default: location.hash = '#login';
+  }
+}
+
+// === REGISTER FORM ===
+document.getElementById('registerForm').onsubmit = async e => {
+  e.preventDefault();
+  const username = document.getElementById('regUsername').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const password = document.getElementById('regPassword').value;
+  const msgEl = document.getElementById('regMessage');
+  msgEl.textContent = '';
+
+  try {
+    const res = await fetch(apiBase + '/auth/register', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({username, email, password})
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.msg || 'Register failed');
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('uid', data.uid);
+    localStorage.setItem('username', data.username);
+    localStorage.setItem('isAdmin', 'false'); // new users not admin
+    location.hash = '#dashboard';
+  } catch (err) {
+    msgEl.textContent = err.message;
+  }
+};
+
+// === LOGIN FORM ===
+document.getElementById('loginForm').onsubmit = async e => {
+  e.preventDefault();
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const msgEl = document.getElementById('loginMessage');
+  msgEl.textContent = '';
+
+  try {
+    const res = await fetch(apiBase + '/auth/login', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({username, password})
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.msg || 'Login failed');
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('uid', data.uid);
+    localStorage.setItem('username', data.username);
+
+    // Check admin status on login
+    await checkAdminStatus();
+
+    location.hash = '#dashboard';
+  } catch (err) {
+    msgEl.textContent = err.message;
+  }
+};
+
+async function checkAdminStatus() {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    const res = await fetch(apiBase + '/admin/users', {
+      headers: { Authorization: 'Bearer ' + token }
+    });
+    if (!res.ok) {
+      localStorage.setItem('isAdmin', 'false');
+      return;
     }
+    const users = await res.json();
+    const currentUid = Number(localStorage.getItem('uid'));
+    const currentUser = users.find(u => u.uid === currentUid);
+    localStorage.setItem('isAdmin', currentUser?.isAdmin ? 'true' : 'false');
+  } catch {
+    localStorage.setItem('isAdmin', 'false');
+  }
+}
 
-    function closeModal(type) {
-      document.getElementById(`${type}Modal`).style.display = 'none';
-    }
+// === DASHBOARD ===
+async function loadDashboard() {
+  const token = localStorage.getItem('token');
+  if (!token) return;
 
-    function openDashboard() {
-      document.getElementById('dashboard').style.display = 'flex';
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-  </script>
+  const res = await fetch(apiBase + '/dashboard', {
+    headers: { Authorization: 'Bearer ' + token }
+  });
+  if (!res.ok) {
+    logout();
+    return;
+  }
+  const profile = await res.json();
+  document.getElementById('dashUsername').textContent = profile.username;
+  document.getElementById('dashUID').textContent = profile.uid;
+  document.getElementById('dashBio').value = profile.bio || '';
+  document.getElementById('dashSocialLinks').value = (profile.socialLinks || []).join(', ');
+  document.getElementById('dashMusicEmbed').value = profile.musicEmbedUrl || '';
+  document.getElementById('dashCursorUrl').value = profile.cursorUrl || '';
+  document.getElementById('dashMessage').textContent = '';
+}
+
+document.getElementById('saveProfileBtn').onclick = async () => {
+  const token = localStorage.getItem('token');
+  if (!token) return logout();
+
+  const bio = document.getElementById('dashBio').value.trim();
+  const socialLinks = document.getElementById('dashSocialLinks').value.split(',').map(s => s.trim()).filter(Boolean);
+  const musicEmbedUrl = document.getElementById('dashMusicEmbed').value.trim();
+  const cursorUrl = document.getElementById('dashCursorUrl').value.trim();
+
+  try {
+    const res = await fetch(apiBase + '/dashboard', {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ bio, socialLinks, musicEmbedUrl, cursorUrl })
+    });
+    if (!res.ok) throw new Error('Failed to save profile');
+    document.getElementById('dashMessage').textContent = 'Profile saved successfully!';
+  } catch (err) {
+    document.getElementById('dashMessage').textContent = err.message;
+  }
+};
+
+// File uploads
+document.getElementById('dashUploadPFP').onchange = async function () {
+  const token = localStorage.getItem('token');
+  if (!token) return logout();
+
+  const file = this.files[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append('pfp', file);
+
+  try {
+    const res = await fetch(apiBase + '/dashboard/upload-pfp', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token },
+      body: formData
+    });
+    if (!res.ok) throw new Error('Upload failed');
+    alert('Profile picture uploaded successfully');
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
+document.getElementById('dashUploadBG').onchange = async function () {
+  const token = localStorage.getItem('token');
+  if (!token) return logout();
+
+  const file = this.files[0];
+  if (!file) return;
+
+  const formData = new FormData();
+  formData.append('background', file);
+
+  try {
+    const res = await fetch(apiBase + '/dashboard/upload-background', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + token },
+      body: formData
+    });
+    if (!res.ok) throw new Error('Upload failed');
+    alert('Background uploaded successfully');
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
+// === ADMIN PANEL ===
+async function loadAdminPanel() {
+  const token = localStorage.getItem('token');
+  if (!token) return logout();
+
+  const tbody = document.getElementById('adminUserList');
+  tbody.innerHTML = '';
+  document.getElementById('adminMessage').textContent = '';
+
+  try {
+    const res = await fetch(apiBase + '/admin/users', {
+      headers: { Authorization: 'Bearer ' + token }
+    });
+    if (!res.ok) throw new Error('Failed to load users');
+    const users = await res.json();
+
+    users.forEach(user => {
+      const tr = document.createElement('tr');
+
+      const bannedText = user.isBanned ? 'Yes' : 'No';
+      const badgesHTML = (user.badges || []).map(b => `<span class="badge">${b}</span>`).join(' ');
+
+      tr.innerHTML = `
+        <td>${user.uid}</td>
+        <td>${user.username}</td>
+        <td>${user.email}</td>
+        <td>${bannedText}</td>
+        <td>${badgesHTML}</td>
+        <td>
+          <button class="banBtn">${user.isBanned ? 'Unban' : 'Ban'}</button>
+          <button class="badgeBtn">Toggle Badge</button>
+        </td>
+      `;
+
+      // Ban/unban button
+      tr.querySelector('.banBtn').onclick = async () => {
+        try {
+          const res = await fetch(apiBase + '/admin/ban/' + user._id, {
+            method: 'PUT',
+            headers: { Authorization: 'Bearer ' + token }
+          });
+          if (!res.ok) throw new Error('Failed to update ban status');
+          await loadAdminPanel();
+        } catch (err) {
+          document.getElementById('adminMessage').textContent = err.message;
+        }
+      };
+
+      // Toggle badge button (example badge "premium")
+      tr.querySelector('.badgeBtn').onclick = async () => {
+        try {
+          const res = await fetch(apiBase + '/admin/badge/' + user._id, {
+            method: 'PUT',
+            headers: {
+              'Authorization': 'Bearer ' + token,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ badge: 'premium' })
+          });
+          if (!res.ok) throw new Error('Failed to toggle badge');
+          await loadAdminPanel();
+        } catch (err) {
+          document.getElementById('adminMessage').textContent = err.message;
+        }
+      };
+
+      tbody.appendChild(tr);
+    });
+  } catch (err) {
+    document.getElementById('adminMessage').textContent = err.message;
+  }
+}
+
+window.addEventListener('hashchange', handleRoute);
+window.addEventListener('load', () => {
+  handleRoute();
+  updateNav();
+});
+</script>
+
 </body>
 </html>
