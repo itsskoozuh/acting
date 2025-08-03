@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>crd | Ambient Mood Room</title>
+  <title>crd | HyperRoom</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     * {
@@ -16,7 +16,7 @@
     body {
       height: 100vh;
       overflow: hidden;
-      background: linear-gradient(to bottom, #0a0f1c, #1e2230);
+      background: radial-gradient(circle at center, #0f0f1d, #05050a);
       color: white;
       display: flex;
       flex-direction: column;
@@ -24,70 +24,174 @@
       justify-content: center;
     }
 
+    .glow-text {
+      font-size: 2rem;
+      text-align: center;
+      background: linear-gradient(90deg, #00e5ff, #ff00cc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glowFade 5s ease-in-out infinite;
+    }
+
+    @keyframes glowFade {
+      0%, 100% {
+        opacity: 0.9;
+        text-shadow: 0 0 10px #00e5ff, 0 0 20px #ff00cc;
+      }
+      50% {
+        opacity: 1;
+        text-shadow: 0 0 25px #00e5ff, 0 0 35px #ff00cc;
+      }
+    }
+
     .room-selector {
       display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      backdrop-filter: blur(20px);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
     }
 
     .room-button {
-      padding: 12px 24px;
+      padding: 14px 28px;
       border: none;
       border-radius: 30px;
-      background: #444;
+      background: rgba(255, 255, 255, 0.1);
       color: white;
+      font-size: 1rem;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 20px rgba(0, 255, 255, 0.3);
     }
 
     .room-button:hover {
-      background: #666;
+      background: rgba(0, 255, 255, 0.3);
+      color: black;
     }
 
-    .room {
+    .iphone-dock {
       position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 30px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+    }
+
+    .dock-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #0ff, #00f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .dock-icon:hover {
+      transform: scale(1.1);
+    }
+
+    canvas {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      font-size: 2rem;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .active {
-      display: flex;
+      z-index: -2;
     }
   </style>
 </head>
 <body>
+  <canvas id="particles"></canvas>
+
+  <div class="glow-text">Welcome to the HyperRoom</div>
   <div class="room-selector">
-    <button class="room-button" onclick="switchRoom('studio')">Studio</button>
-    <button class="room-button" onclick="switchRoom('nightdrive')">Night Drive</button>
-    <button class="room-button" onclick="switchRoom('forest')">Forest</button>
+    <button class="room-button" onclick="changeTheme('#0ff', '#00f')">Neon Pulse</button>
+    <button class="room-button" onclick="changeTheme('#f0f', '#ff0')">Cyberlight</button>
+    <button class="room-button" onclick="changeTheme('#0f0', '#0ff')">Glitchcore</button>
   </div>
 
-  <div id="studio" class="room active" style="background-image: url('assets/studio.jpg');">
-    🎧 Studio Vibes
-  </div>
-  <div id="nightdrive" class="room" style="background-image: url('assets/nightdrive.jpg');">
-    🚗 Late Night Drive
-  </div>
-  <div id="forest" class="room" style="background-image: url('assets/forest.jpg');">
-    🌲 Forest Ambience
+  <div class="iphone-dock">
+    <div class="dock-icon">⚡</div>
+    <div class="dock-icon">🎵</div>
+    <div class="dock-icon">💾</div>
+    <div class="dock-icon">🧊</div>
   </div>
 
   <script>
-    function switchRoom(roomId) {
-      document.querySelectorAll('.room').forEach(room => {
-        room.classList.remove('active');
-      });
-      document.getElementById(roomId).classList.add('active');
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+        if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 255, 255, 0.6)';
+        ctx.fill();
+      }
     }
+
+    function init() {
+      particlesArray = [];
+      const numberOfParticles = 150;
+      for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    function changeTheme(color1, color2) {
+      document.body.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+    }
+
+    init();
+    animate();
   </script>
 </body>
 </html>
