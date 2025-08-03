@@ -107,13 +107,14 @@
   }
 
   .prod-gradient {
-    background: linear-gradient(135deg, #777, #444);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
-    animation: none;
-    display: inline-block;
-  }
+  background: linear-gradient(135deg, #1e90ff, #00bfff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(30, 144, 255, 0.8);
+  animation: borderScroll 3s ease-in-out infinite alternate;
+  display: inline-block;
+}
 
   .description {
     font-size: 16px;
@@ -273,15 +274,15 @@
   }
 
   .badge-container {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-    padding: 5px;
-    border-radius: 16px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-    position: relative;
-  }
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 16px;
+  border: none; /* remove border */
+  background: transparent; /* remove background */
+  position: relative;
+}
 
   .badge-container::before {
     content: '';
@@ -299,15 +300,15 @@
   }
 
   .badge-container img {
-    width: 15px;
-    height: 15px;
-    border-radius: 2px;
-    margin-right: 4px;
-    margin-left: 1px;
-    object-fit: cover;
-    filter: grayscale(70%) brightness(60%);
-    box-shadow: 0 0 4px rgba(0,0,0,0.4);
-  }
+  width: 20px;
+  height: 20px;
+  border-radius: 0;
+  margin-right: 6px;
+  margin-left: 2px;
+  object-fit: contain;
+  filter: none;
+  box-shadow: none;
+}
 
   .social-logos {
     display: flex;
