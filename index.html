@@ -157,21 +157,20 @@
   /* Updated badge container and badges */
 
   .badge-container {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-    padding: 6px 12px; /* spacing inside border */
-    border-radius: 24px; /* rounded corners */
-    background: transparent; /* no background */
-    border: 2px solid transparent;
-    position: relative;
-    background-image: linear-gradient(#111, #111), /* background under border to avoid bleed */
-                      linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-    animation: gradientGlow 3s linear infinite;
-    box-shadow: none; /* no glow */
-  }
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  padding: 6px 12px;
+  border-radius: 24px;
+  background: transparent; /* no background */
+  border: 2px solid transparent;
+  position: relative;
+  background-image: linear-gradient(270deg, #1e90ff, #00bfff, #1e90ff, #00bfff);
+  background-origin: border-box;
+  background-clip: border-box;
+  animation: gradientGlow 3s linear infinite;
+  box-shadow: none;
+}
 
   .badge-container img {
     position: relative;
