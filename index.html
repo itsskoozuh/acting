@@ -1,357 +1,408 @@
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #111;
-  font-family: 'Poppins', sans-serif;
-  overflow: hidden;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>crd | Producer</title>
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: 'Poppins', sans-serif;
+      user-select: none;
+    }
 
-#blurOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(17, 17, 17, 0.9);
-  backdrop-filter: blur(12px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: white;
-  font-size: 28px;
-  font-weight: 600;
-  cursor: pointer;
-  z-index: 9999;
-  user-select: none;
-  transition: opacity 0.3s ease;
-}
+    body, html {
+      height: 100vh;
+      background: #121214; /* No background.png here */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ccc;
+      overflow: hidden;
+      perspective: 900px;
+    }
 
-#blurOverlay.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
+    #blurOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 18, 20, 0.85);
+      backdrop-filter: blur(14px);
+      color: #ddd;
+      font-weight: 700;
+      font-size: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 9999;
+      transition: opacity 0.3s ease;
+    }
+    #blurOverlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
 
-.card-wrapper {
-  padding: 4px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, #444, #222);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* subtle outer shadow */
-  display: inline-block;
-  transition: transform 0.2s ease;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
+    .card-wrapper {
+      background: linear-gradient(145deg, #2a2a2c, #1e1e20);
+      border-radius: 28px;
+      padding: 6px;
+      box-shadow:
+        0 0 6px #55555588,       /* Reduced outer glow */
+        inset 0 0 10px #111111;   /* Reduced inset glow */
+      transition: transform 0.3s ease;
+      width: 560px;
+      max-width: 90vw;
+    }
 
-.card {
-  position: relative;
-  width: 550px;
-  min-height: 250px;
-  border-radius: 20px;
-  padding: 25px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  color: #ddd;
-  transition: transform 0.1s ease, box-shadow 0.2s ease;
-  transform-style: preserve-3d;
-  will-change: transform;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6) inset;
-  overflow: hidden;
-  background: transparent;
-  z-index: 1;
-}
+    .card {
+      background: rgba(28, 28, 30, 0.7);
+      border-radius: 22px;
+      padding: 30px 35px;
+      box-shadow:
+        inset 0 0 30px rgba(0, 0, 0, 0.85),
+        0 4px 15px rgba(60, 60, 60, 0.4);
+      position: relative;
+      overflow: hidden;
+      color: #bbb;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      z-index: 1;
+    }
 
-.card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: url('assets/background.png') no-repeat center center/cover;
-  filter: blur(8px);
-  opacity: 0.5;
-  border-radius: 20px;
-  z-index: -1;
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
-}
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('assets/background.png') no-repeat center/cover;
+      filter: blur(9px) brightness(0.4);
+      border-radius: 22px;
+      z-index: 0;
+      opacity: 0.35;
+      pointer-events: none;
+    }
 
-.profile-pic {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 5px;
-  border: 3px solid rgba(100, 100, 100, 0.5);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-}
+    .profile-pic {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 3px solid #666666cc;
+      box-shadow: 0 0 15px #555555cc;
+      object-fit: cover;
+      margin-bottom: 8px;
+      align-self: center;
+      background: #222;
+      z-index: 1;
+    }
 
-.name {
-  font-size: 35px;
-  font-weight: 600;
-  margin-left: 5px;
-  color: #bbb;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
-}
+    .name-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      z-index: 1;
+    }
 
-.prod-gradient {
-  background: linear-gradient(135deg, #1e90ff, #00bfff);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 10px rgba(30, 144, 255, 0.8);
-  animation: borderScroll 3s ease-in-out infinite alternate;
-  display: inline-block;
-}
+    .name {
+      font-size: 36px;
+      font-weight: 700;
+      color: #aaa;
+      text-shadow: 0 0 6px #555555aa;
+      background: linear-gradient(135deg, #999999, #666666);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulseText 3.5s ease-in-out infinite;
+    }
 
-.description {
-  font-size: 16px;
-  color: #bbb;
-  line-height: 1.4;
-  max-width: 100%;
-  margin-left: 5px;
-}
+    @keyframes pulseText {
+      0%, 100% { text-shadow: 0 0 8px #888888cc; }
+      50% { text-shadow: 0 0 16px #bbbbbbdd; }
+    }
 
-.presence-card {
-  display: flex;
-  align-items: center;
-  background: rgba(150, 150, 150, 0.05);
-  border-radius: 12px;
-  padding: 10px 14px;
-  box-sizing: border-box;
-  width: 100%;
-  backdrop-filter: blur(5px);
-  margin-top: 25px;
-  color: #ccc;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
+    /* New gold gradient for Owner text */
+    .owner-text {
+      font-weight: 700;
+      font-size: 18px;
+      background: linear-gradient(90deg, #d4af37, #f3db6b, #d4af37);
+      background-size: 200% 100%;
+      background-position: 0% 0;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: goldFlow 3.5s linear infinite;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    @keyframes goldFlow {
+      0% { background-position: 0% 0; }
+      100% { background-position: 100% 0; }
+    }
 
-.avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 12px;
-  border: 2px solid #333;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-}
+    .description {
+      text-align: center;
+      user-select: text;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
 
-.details .username {
-  font-size: 15px;
-  font-weight: 500;
-  color: #999;
-}
+    .presence-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(150, 150, 150, 0.07);
+      border-radius: 14px;
+      padding: 12px 18px;
+      box-shadow: 0 0 12px rgba(100, 100, 100, 0.2);
+      backdrop-filter: blur(5px);
+      color: #aaa;
+      user-select: none;
+      z-index: 1;
+    }
 
-.badge {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border-radius: 0px;
-  background-size: cover;
-  background-position: center;
-  vertical-align: middle;
-}
+    .presence-card .avatar {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      border: 2px solid #555555cc;
+      object-fit: cover;
+      box-shadow: 0 0 14px #444444cc;
+      background: #333;
+    }
 
-.badge.quest {
-  background-image: url('assets/quest.png');
-  margin-left: 5px;
-  filter: none;
-  box-shadow: none;
-}
+    .presence-card .details {
+      font-size: 14px;
+      color: #888;
+      font-weight: 600;
+      user-select: text;
+    }
 
-.badge.bravery {
-  background-image: url('assets/bravery.png');
-  margin-left: 1px;
-  filter: none;
-  box-shadow: none;
-}
+    .presence-card .username {
+      font-weight: 700;
+      color: #bbb;
+    }
 
-.music-player {
-  margin-top: 10px;
-  width: 100%;
-  background: rgba(150, 150, 150, 0.07);
-  border-radius: 12px;
-  padding: 12px 14px;
-  box-sizing: border-box;
-  backdrop-filter: blur(5px);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  color: #ccc;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-}
+    .music-player {
+      background: rgba(150, 150, 150, 0.12);
+      border-radius: 16px;
+      padding: 15px 20px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 16px rgba(120, 120, 120, 0.3);
+      color: #ccc;
+      user-select: none;
+      z-index: 1;
+    }
 
-.track-info {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 14px;
-  font-weight: 400;
-  display: flex;
-  flex-direction: column;
-  line-height: 0.5;
-}
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.artist-name {
-  font-weight: 400;
-  color: rgba(200, 200, 200, 0.7);
-  font-size: 14px;
-  margin-top: 8px;
-}
+    .track-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-weight: 600;
+    }
 
-.controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    #track-title {
+      font-size: 16px;
+      color: #ddd;
+    }
 
-.controls button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  transition: transform 0.2s ease;
-}
+    #track-artist {
+      font-size: 14px;
+      color: #aaa;
+      font-weight: 400;
+    }
 
-.controls button:hover {
-  transform: scale(1.05);
-}
+    button#playPauseBtn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 3px #888888cc);
+    }
+    button#playPauseBtn:hover {
+      transform: scale(1.15);
+    }
+    button#playPauseBtn img {
+      width: 30px;
+      height: 30px;
+      filter: grayscale(20%) brightness(120%);
+    }
 
-.controls img {
-  width: 26px;
-  height: 26px;
-  transition: opacity 0.25s ease;
-  filter: none;
-}
+    #seekBar {
+      width: 100%;
+      margin-top: 14px;
+      height: 6px;
+      border-radius: 12px;
+      background: linear-gradient(to right, #999999cc 0%, #555555cc 100%);
+      -webkit-appearance: none;
+      cursor: pointer;
+      outline: none;
+    }
 
-#seekBar {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 4px;
-  background: rgba(180, 180, 180, 0.3);
-  border-radius: 10px;
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-  transition: height 0.2s ease;
-}
+    #seekBar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      background: #bbbbbbdd;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 0 6px #888888cc;
+      border: 2px solid #999999cc;
+      transition: background-color 0.25s ease;
+    }
+    #seekBar::-webkit-slider-thumb:hover {
+      background: #cccccc;
+    }
 
-#seekBar::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 0;
-  height: 0;
-  background: transparent;
-  border: none;
-}
+    .social-logos {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      gap: 20px;
+      opacity: 0.25;
+      transition: opacity 0.3s ease;
+      user-select: none;
+    }
+    .social-logos:hover {
+      opacity: 0.65;
+    }
+    .social-icon {
+      width: 38px;
+      height: 38px;
+      filter: drop-shadow(0 0 4px #666666cc);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .social-icon:hover {
+      transform: scale(1.2);
+    }
 
-#seekBar::before {
-  content: '';
-  position: absolute;
-  height: 100%;
-  background: rgba(180, 180, 180, 0.6);
-  width: 0%;
-  z-index: 1;
-  transition: width 0.1s linear;
-}
+    @media (max-width: 480px) {
+      .card-wrapper {
+        width: 95vw;
+      }
+      .profile-pic {
+        width: 100px;
+        height: 100px;
+      }
+      .name {
+        font-size: 28px;
+      }
+      .description {
+        font-size: 16px;
+      }
+      .presence-card .avatar {
+        width: 48px;
+        height: 48px;
+      }
+      .music-player {
+        padding: 12px 15px;
+      }
+      #playPauseBtn img {
+        width: 26px;
+        height: 26px;
+      }
+      .social-icon {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
 
-#seekBar:hover,
-#seekBar:active {
-  height: 8px;
-}
+  <div id="blurOverlay">grief</div>
 
-.badge-container {
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  padding: 5px;
-  border-radius: 16px;
-  border: none;
-  background: transparent;
-  position: relative;
-}
+  <div class="card-wrapper" id="cardWrapper">
+    <div class="card">
+      <img src="assets/pfp.png" alt="Profile Picture" class="profile-pic" />
 
-.badge-container::before {
-  content: none;
-}
+      <div class="name-row">
+        <div class="name">prod <span class="prod-gradient">@skoozuh</span></div>
+      </div>
 
-.badge-container img {
-  width: 20px;
-  height: 20px;
-  border-radius: 0;
-  margin-right: 6px;
-  margin-left: 2px;
-  object-fit: contain;
-  filter: none;
-  box-shadow: none;
-}
+      <div class="description">
+        <div class="owner-text">Owner</div>
+        <img src="assets/crownw.png" alt="Crown" style="width: 22px; height: 22px; user-select: none;" />
+      </div>
 
-.social-logos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  margin-top: 25px;
-  opacity: 0.1;
-}
+      <div class="presence-card">
+        <img class="avatar" src="assets/pfp.png" alt="Profile Avatar" />
+        <div class="details">
+          <div class="username">skoozuh</div>
+        </div>
+      </div>
 
-.social-icon {
-  width: 35px;
-  height: 35px;
-  object-fit: contain;
-}
+      <div class="music-player">
+        <div class="controls">
+          <div class="track-info">
+            <span id="track-title">Switchlanes</span>
+            <span id="track-artist">LUCKI</span>
+          </div>
+          <button id="playPauseBtn" aria-label="Play/Pause">
+            <img id="playPauseIcon" src="assets/play.png" alt="Play Icon" />
+          </button>
+        </div>
+        <input type="range" id="seekBar" min="0" max="100" value="0" step="1" aria-label="Audio Seek Bar" />
+        <audio id="audio" src="assets/lucki.mp3"></audio>
+      </div>
 
-.social-logos a {
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
+      <div class="social-logos">
+        <a href="https://instagram.com/deadbeforenight" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <img src="assets/iglogo.png" alt="Instagram Logo" class="social-icon" />
+        </a>
+      </div>
+    </div>
+  </div>
 
-.social-logos a:hover {
-  transform: scale(1.1);
-}
+  <script>
+    const wrapper = document.getElementById('cardWrapper');
+    const blurOverlay = document.getElementById('blurOverlay');
+    const audio = document.getElementById('audio');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playPauseIcon = document.getElementById('playPauseIcon');
+    const seekBar = document.getElementById('seekBar');
 
-@media (max-width: 480px) {
-  .card {
-    width: 90vw;
-    padding: 20px;
-  }
+    // Removed 3D tilt - no event listeners for mousemove or mouseleave
 
-  .profile-pic {
-    width: 100px;
-    height: 100px;
-  }
+    // Blur overlay click to hide
+    blurOverlay.addEventListener('click', () => {
+      blurOverlay.classList.add('hidden');
+    });
 
-  .name {
-    font-size: 28px;
-  }
+    // Audio play/pause toggle
+    playPauseBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playPauseIcon.src = "assets/pause.png";
+      } else {
+        audio.pause();
+        playPauseIcon.src = "assets/play.png";
+      }
+    });
 
-  .description {
-    font-size: 14px;
-  }
+    // Sync seek bar with audio
+    audio.addEventListener('timeupdate', () => {
+      seekBar.max = audio.duration || 100;
+      seekBar.value = audio.currentTime;
+    });
 
-  .presence-card,
-  .music-player {
-    padding: 10px;
-  }
-
-  .social-icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .avatar {
-    width: 48px;
-    height: 48px;
-  }
-
-  .track-info {
-    font-size: 13px;
-  }
-
-  .artist-name {
-    font-size: 12px;
-  }
-}
+    // Seek audio on input
+    seekBar.addEventListener('input', () => {
+      audio.currentTime = seekBar.value;
+    });
+  </script>
+</body>
+</html>
