@@ -1,374 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>haunt.gg — Your Digital Identity</title>
-  <link rel="icon" href="assets/favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1920">
+<title>haunt.gg — Pixel Perfect</title>
+<link rel="icon" href="assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(1200px 800px at 10% 75%, rgba(99,19,37,0.18), transparent 6%),
+                radial-gradient(1000px 600px at 95% 20%, rgba(20,10,20,0.12), transparent 12%),
+                linear-gradient(180deg, #050405, #10050a);
+    color: #fff;
+    overflow-x: hidden;
+  }
+  .page {
+    width: 1920px;
+    margin: 0 auto;
+  }
 
-  <style>
-    :root{
-      --bg-1: #050405;
-      --bg-2: #10050a;
-      --card-top: #3b0329;
-      --card-mid: rgba(0,0,0,0.55);
-      --accent: #ff5fb7;
-      --accent-2: #c44a9a;
-      --muted: #9aa3a8;
-      --glass: rgba(255,255,255,0.03);
-      --glass-2: rgba(255,255,255,0.02);
-      --border: rgba(255,255,255,0.06);
-      --success:#28d06b;
-    }
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 60px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 18px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 999px;
+  }
+  .brand img {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+  .brand h1 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+  }
+  nav {
+    display: flex;
+    gap: 28px;
+  }
+  nav a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+    font-size: 15px;
+  }
+  nav a:hover {
+    color: #fff;
+  }
+  .cta {
+    display: flex;
+    gap: 10px;
+  }
+  .btn {
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .btn.primary {
+    background: linear-gradient(90deg, #ff5fb7, #c44a9a);
+    color: #fff;
+  }
+  .btn.ghost {
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+  }
 
-    /* Reset & base */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-      background: radial-gradient(1200px 800px at 10% 75%, rgba(99,19,37,0.18), transparent 6%),
-                  radial-gradient(1000px 600px at 95% 20%, rgba(20,10,20,0.12), transparent 12%),
-                  linear-gradient(180deg,var(--bg-1),var(--bg-2));
-      color:#e9eef5;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow-x:hidden;
-    }
+  /* Hero */
+  .hero {
+    display: flex;
+    padding: 80px 60px;
+    gap: 60px;
+  }
+  .hero-text {
+    flex: 1;
+    padding-top: 40px;
+  }
+  .kicker {
+    color: #9aa3a8;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  .hero-title {
+    font-size: 72px;
+    font-weight: 800;
+    line-height: 0.95;
+    margin: 0 0 18px;
+    letter-spacing: -1px;
+  }
+  .hero-title span {
+    color: #ff5fb7;
+    text-shadow: 0 6px 30px rgba(255,95,183,0.32);
+  }
+  .hero-desc {
+    font-size: 16px;
+    color: rgba(233,238,245,0.65);
+    max-width: 580px;
+    margin-bottom: 26px;
+  }
+  .actions {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .muted-feat {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 13px;
+    color: #9aa3a8;
+    margin-top: 18px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: #28d06b;
+    border-radius: 50%;
+  }
 
-    /* Top nav */
-    .topbar{
-      max-width:1200px;
-      margin:28px auto;
-      padding:8px 20px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      padding:10px 18px;
-      border-radius:999px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow:0 6px 32px rgba(255,95,183,0.06), inset 0 0 32px rgba(255,95,183,0.02);
-      border:1px solid rgba(255,95,183,0.06);
-    }
-    .brand img{width:36px;height:36px;border-radius:8px;object-fit:cover}
-    .brand h1{font-size:18px;margin:0;font-weight:700;color:white;letter-spacing:0.2px}
-    nav thead{}
-    .navlinks{display:flex;gap:28px;align-items:center}
-    .navlinks a{color:rgba(255,255,255,0.75);text-decoration:none;font-weight:500;padding:8px 10px;border-radius:12px}
-    .navlinks a:hover{color:white}
-    .cta{
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-    .btn{
-      padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:white;font-weight:600;
-      cursor:pointer;
-      transition:all .18s ease;
-    }
-    .btn.primary{
-      background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      box-shadow:0 6px 30px rgba(196,74,154,0.12), 0 0 40px rgba(255,95,183,0.08);
-      border:1px solid rgba(255,255,255,0.06);
-    }
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.8)}
-    .btn:hover{transform:translateY(-2px)}
-
-    /* Container */
-    .container{
-      max-width:1200px;
-      margin:40px auto 90px;
-      display:grid;
-      grid-template-columns: 1fr 460px;
-      gap:48px;
-      align-items:center;
-      padding:20px;
-    }
-
-    /* Left Hero */
-    .hero-left{padding:40px 12px}
-    .kicker{display:inline-block;margin-bottom:12px;color:var(--muted);font-weight:600}
-    .hero-title{
-      font-size:72px;line-height:0.95;margin:0 0 18px;font-weight:800;
-      letter-spacing:-1px;
-      text-shadow:0 8px 40px rgba(0,0,0,0.6);
-    }
-    .hero-title .accent{
-      color:var(--accent);
-      text-shadow:0 6px 30px rgba(255,95,183,0.32);
-    }
-    .hero-desc{color:rgba(233,238,245,0.65);max-width:580px;margin-bottom:26px;font-size:16px}
-    .actions{display:flex;gap:14px;align-items:center;margin-bottom:18px}
-    .muted-feat{display:flex;gap:12px;align-items:center;color:var(--muted);font-size:13px;margin-top:18px}
-    .dot{width:8px;height:8px;border-radius:999px;background:var(--success);display:inline-block;margin-right:8px}
-
-    /* Right Card */
-    .card{
-      width:100%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:22px;
-      padding:22px;
-      border:1px solid rgba(255,255,255,0.06);
-      box-shadow: 0 24px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
-      position:relative;
-      overflow:visible;
-    }
-    .card::before{
-      content:"";
-      position:absolute;left:6px;top:6px;right:6px;bottom:6px;border-radius:20px;
-      border:1px solid rgba(255,95,183,0.06);
-      pointer-events:none;
-    }
-
-    .card-top{
-      height:110px;
-      border-radius:14px;
-      background: linear-gradient(180deg, rgba(67,8,33,0.95), rgba(55,3,41,0.9));
-      display:flex;align-items:center;justify-content:center;
-      margin:-2px -2px 18px -2px;padding-top:12px;
-    }
-    .avatar{
-      width:96px;height:96px;border-radius:999px;border:8px solid rgba(0,0,0,0.45);
-      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.25));
-      display:flex;align-items:center;justify-content:center;overflow:hidden;
-      margin-top:6px;
-      box-shadow:0 10px 40px rgba(0,0,0,0.7), 0 0 48px rgba(255,95,183,0.09);
-    }
-    .avatar img{width:100%;height:100%;object-fit:cover}
-
-    .card-body{padding:12px 6px 18px;color:rgba(233,238,245,0.95);text-align:center}
-    .username{font-weight:700;font-size:20px;margin-top:10px}
-    .badges{display:flex;gap:8px;justify-content:center;margin:10px 0}
-    .badge{
-      height:28px;padding:0 8px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;
-      background:linear-gradient(90deg,rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.04);
-      font-size:13px;color:rgba(255,255,255,0.9)
-    }
-
-    .profile-desc{font-weight:600;margin-top:8px;color:rgba(233,238,245,0.9)}
-    .profile-meta{color:var(--muted);margin-top:6px;font-size:13px}
-
-    .presence{
-      margin-top:16px;
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      align-items:center;
-    }
-    .presence .presence-card{
-      display:flex;gap:12px;padding:10px 14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.25));
-      border:1px solid rgba(255,255,255,0.03);align-items:center;
-      min-width:240px;max-width:320px;
-    }
-    .presence .presence-card .game-icon{
-      width:44px;height:44px;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.45));
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    .presence .presence-card .label{font-size:13px;text-align:left}
-    .presence .presence-card .status{font-size:12px;color:var(--muted);margin-top:4px}
-
-    .social-rows{display:flex;gap:16px;justify-content:center;margin-top:18px}
-    .social-rows img{width:30px;height:30px;opacity:0.95}
-
-    /* Scroll down arrow */
-    .scroll-down{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;color:rgba(255,255,255,0.45);font-size:13px;text-align:center}
-
-    /* Glow & subtle animations */
-    .glow{
-      filter:drop-shadow(0 8px 40px rgba(255,95,183,0.18));
-    }
-
-    /* Explore dropdown */
-    .explore{
-      position:relative;
-    }
-    .dropdown{
-      position:absolute;top:46px;left:0;min-width:210px;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.45));
-      border-radius:12px;padding:10px;border:1px solid rgba(255,255,255,0.04);
-      box-shadow:0 18px 60px rgba(2,2,2,0.6);backdrop-filter: blur(8px);
-      display:none;
-    }
-    .dropdown a{display:block;padding:8px 10px;color:#e7ecf2;text-decoration:none;border-radius:8px;font-size:14px}
-    .dropdown a:hover{background:rgba(255,255,255,0.02)}
-
-    /* Responsive */
-    @media (max-width:1000px){
-      .container{grid-template-columns:1fr;gap:28px;padding:20px 24px}
-      .hero-title{font-size:48px}
-      .card{order:-1}
-      .topbar{max-width:980px;padding:12px}
-    }
-    @media (max-width:520px){
-      .brand h1{font-size:16px}
-      .navlinks{display:none}
-      .hero-title{font-size:40px}
-      .avatar{width:84px;height:84px}
-    }
-  </style>
+  /* Profile Card */
+  .card {
+    width: 460px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 22px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    padding: 22px;
+    position: relative;
+  }
+  .card-top {
+    height: 110px;
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(67,8,33,0.95), rgba(55,3,41,0.9));
+    margin: -2px -2px 18px -2px;
+  }
+  .avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 8px solid rgba(0,0,0,0.45);
+    overflow: hidden;
+    margin: -54px auto 6px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+  }
+  .avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .username {
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  .badges {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 10px 0;
+  }
+  .badge {
+    padding: 0 8px;
+    height: 28px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+  }
+  .profile-desc {
+    text-align: center;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .profile-meta {
+    text-align: center;
+    font-size: 13px;
+    color: #9aa3a8;
+    margin-top: 6px;
+  }
+  .presence {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  .presence-card {
+    display: flex;
+    gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.01);
+    border: 1px solid rgba(255,255,255,0.03);
+    border-radius: 12px;
+    min-width: 240px;
+    max-width: 320px;
+  }
+  .game-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .social-rows {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 18px;
+  }
+  .social-rows img {
+    width: 30px;
+    height: 30px;
+  }
+</style>
 </head>
 <body>
-
-  <!-- Top navigation -->
-  <header class="topbar">
-    <div style="display:flex;gap:12px;align-items:center">
-      <div class="brand glow" aria-hidden="true">
-        <img src="assets/logo.png" alt="logo" onerror="this.src='assets/favicon.png'"/>
-        <h1>haunt.gg</h1>
-      </div>
-      <div class="navlinks" role="navigation" aria-label="main navigation">
-        <a href="#">Discord</a>
-        <a href="#">Leaderboard</a>
-        <a href="#">Help Center</a>
-        <a href="#">Pricing</a>
-        <a href="#">Team</a>
-      </div>
+<div class="page">
+  <header>
+    <div class="brand">
+      <img src="assets/logo.png" alt="logo">
+      <h1>haunt.gg</h1>
     </div>
-
+    <nav>
+      <a href="#">Discord</a>
+      <a href="#">Leaderboard</a>
+      <a href="#">Help Center</a>
+      <a href="#">Pricing</a>
+      <a href="#">Team</a>
+    </nav>
     <div class="cta">
-      <button class="btn ghost" id="loginBtn">Login</button>
-      <button class="btn primary" id="signupBtn">Sign Up</button>
+      <button class="btn ghost">Login</button>
+      <button class="btn primary">Sign Up</button>
     </div>
   </header>
 
-  <!-- Main container -->
-  <main class="container" role="main">
-    <!-- Left hero -->
-    <section class="hero-left" aria-labelledby="hero-title">
+  <section class="hero">
+    <div class="hero-text">
       <div class="kicker">Your Digital</div>
-      <h2 id="hero-title" class="hero-title">
-        Your Digital <span class="accent">Identity,</span><br />
-        On Your Terms
-      </h2>
-
+      <h2 class="hero-title">Your Digital <span>Identity,</span><br> On Your Terms</h2>
       <p class="hero-desc">
         Create a stunning biolink page that represents your personal brand. Share all your content in one beautiful, customizable location.
       </p>
-
       <div class="actions">
-        <button class="btn primary" id="claimBtn">Claim Username</button>
-
-        <div class="explore">
-          <button class="btn ghost" id="exploreBtn">Explore Features ▾</button>
-          <div class="dropdown" id="exploreMenu" aria-hidden="true">
-            <a href="#">Custom Domains</a>
-            <a href="#">Profile Customizer</a>
-            <a href="#">Music & Embeds</a>
-            <a href="#">Premium Themes</a>
-          </div>
-        </div>
+        <button class="btn primary">Claim Username</button>
+        <button class="btn ghost">Explore Features</button>
       </div>
-
       <div class="muted-feat">
-        <span class="dot" aria-hidden="true"></span>
-        <div>100% Free To Get Started &bull; No Credit Card Required</div>
+        <span class="dot"></span>
+        100% Free To Get Started • No Credit Card Required
       </div>
-    </section>
+    </div>
 
-    <!-- Right card (profile preview) -->
-    <aside class="card" aria-label="profile preview card">
-      <div class="card-top">
-        <!-- subtle top background -->
+    <div class="card">
+      <div class="card-top"></div>
+      <div class="avatar">
+        <img src="assets/pfp.png" alt="pfp">
       </div>
-
-      <div class="avatar" style="margin:-54px auto 6px;">
-        <img src="assets/pfp.png" alt="profile picture" onerror="this.src='assets/oguser.png'"/>
+      <div class="username">haunt</div>
+      <div class="badges">
+        <div class="badge">⚒️</div>
+        <div class="badge">⭐</div>
+        <div class="badge">✅</div>
+        <div class="badge">💰</div>
+        <div class="badge">🎗️</div>
+        <div class="badge">🔥</div>
       </div>
-
-      <div class="card-body">
-        <div class="username">haunt</div>
-
-        <div class="badges" aria-hidden="true">
-          <div class="badge">⚒️</div>
-          <div class="badge">⭐</div>
-          <div class="badge">✅</div>
-          <div class="badge">💰</div>
-          <div class="badge">🎗️</div>
-          <div class="badge">🔥</div>
-        </div>
-
-        <div class="profile-desc">Web developer &amp; designer based in Austria.</div>
-        <div class="profile-meta">📍 Vienna, Austria</div>
-
-        <div class="presence">
-          <div class="presence-card">
-            <div class="game-icon">
-              <img src="assets/play.png" alt="playing icon" style="width:100%;height:100%;object-fit:cover"/>
-            </div>
-            <div style="text-align:left">
-              <div style="font-weight:700">haunt.gg#1344 <span style="font-size:11px;color:var(--muted);margin-left:6px">· haunt</span></div>
-              <div class="status">Playing Valorant · Competitive - Haven</div>
-            </div>
+      <div class="profile-desc">Web developer &amp; designer based in Austria.</div>
+      <div class="profile-meta">📍 Vienna, Austria</div>
+      <div class="presence">
+        <div class="presence-card">
+          <div class="game-icon">
+            <img src="assets/play.png" alt="play" style="width:100%;height:100%;">
+          </div>
+          <div>
+            <div style="font-weight:700">haunt.gg#1344 <span style="font-size:11px;color:#9aa3a8;margin-left:6px">· haunt</span></div>
+            <div style="font-size:12px;color:#9aa3a8">Playing Valorant · Competitive - Haven</div>
           </div>
         </div>
-
-        <div class="social-rows" role="list">
-          <img src="assets/github.png" alt="github" onerror="this.style.opacity=0.5;">
-          <img src="assets/discord.png" alt="discord" onerror="this.style.opacity=0.5;">
-          <img src="assets/x.png" alt="x" onerror="this.style.opacity=0.5;">
-          <img src="assets/iglogo.png" alt="instagram" onerror="this.style.opacity=0.5;">
-        </div>
       </div>
-    </aside>
-  </main>
-
-  <div class="scroll-down">
-    Scroll Down<br>▾
-  </div>
-
-  <script>
-    // Simple interactivity: dropdown + nav highlighting + fake signup/login modals
-    (function(){
-      const exploreBtn = document.getElementById('exploreBtn');
-      const exploreMenu = document.getElementById('exploreMenu');
-      let open = false;
-
-      exploreBtn.addEventListener('click', (e)=>{
-        open = !open;
-        exploreMenu.style.display = open ? 'block' : 'none';
-        exploreMenu.setAttribute('aria-hidden', !open);
-      });
-
-      // Close dropdown on outside click
-      document.addEventListener('click', function(e){
-        if(!exploreBtn.contains(e.target) && !exploreMenu.contains(e.target)){
-          exploreMenu.style.display = 'none';
-          exploreMenu.setAttribute('aria-hidden','true');
-          open = false;
-        }
-      });
-
-      // small animation on signup
-      document.getElementById('signupBtn').addEventListener('click', ()=>{
-        const btn = document.getElementById('signupBtn');
-        btn.style.transform = 'scale(0.98)';
-        setTimeout(()=>btn.style.transform = '', 160);
-        alert('Sign up flow: replace alert with your signup modal / logic.');
-      });
-      document.getElementById('loginBtn').addEventListener('click', ()=>{
-        alert('Login flow: replace alert with your login modal / logic.');
-      });
-
-      // Add small parallax glow when moving mouse (subtle)
-      const card = document.querySelector('.card');
-      window.addEventListener('mousemove', e=>{
-        const rect = card.getBoundingClientRect();
-        const cx = rect.left + rect.width/2;
-        const cy = rect.top + rect.height/2;
-        const dx = (e.clientX - cx) / rect.width;
-        const dy = (e.clientY - cy) / rect.height;
-        card.style.transform = `translate3d(${dx*6}px, ${dy*6}px, 0)`;
-      });
-      window.addEventListener('mouseout', ()=> card.style.transform = '');
-    })();
-  </script>
+      <div class="social-rows">
+        <img src="assets/github.png" alt="">
+        <img src="assets/discord.png" alt="">
+        <img src="assets/x.png" alt="">
+        <img src="assets/iglogo.png" alt="">
+      </div>
+    </div>
+  </section>
+</div>
 </body>
 </html>
