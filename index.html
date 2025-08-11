@@ -1,306 +1,498 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=1920">
-<title>haunt.gg — Pixel Perfect</title>
-<link rel="icon" href="assets/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: radial-gradient(1200px 800px at 10% 75%, rgba(99,19,37,0.18), transparent 6%),
-                radial-gradient(1000px 600px at 95% 20%, rgba(20,10,20,0.12), transparent 12%),
-                linear-gradient(180deg, #050405, #10050a);
-    color: #fff;
-    overflow-x: hidden;
-  }
-  .page {
-    width: 1920px;
-    margin: 0 auto;
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>@zc</title>
 
-  /* Header */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 28px 60px;
-  }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 18px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 999px;
-  }
-  .brand img {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-  }
-  .brand h1 {
-    font-size: 18px;
-    font-weight: 700;
-    margin: 0;
-  }
-  nav {
-    display: flex;
-    gap: 28px;
-  }
-  nav a {
-    text-decoration: none;
-    color: rgba(255,255,255,0.75);
-    font-weight: 500;
-    font-size: 15px;
-  }
-  nav a:hover {
-    color: #fff;
-  }
-  .cta {
-    display: flex;
-    gap: 10px;
-  }
-  .btn {
-    padding: 8px 14px;
-    border-radius: 999px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.06);
-  }
-  .btn.primary {
-    background: linear-gradient(90deg, #ff5fb7, #c44a9a);
-    color: #fff;
-  }
-  .btn.ghost {
-    background: transparent;
-    color: rgba(255,255,255,0.8);
-  }
+  <link rel="icon" href="head.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-  /* Hero */
-  .hero {
-    display: flex;
-    padding: 80px 60px;
-    gap: 60px;
-  }
-  .hero-text {
-    flex: 1;
-    padding-top: 40px;
-  }
-  .kicker {
-    color: #9aa3a8;
-    font-weight: 600;
-    font-size: 15px;
-    margin-bottom: 12px;
-  }
-  .hero-title {
-    font-size: 72px;
-    font-weight: 800;
-    line-height: 0.95;
-    margin: 0 0 18px;
-    letter-spacing: -1px;
-  }
-  .hero-title span {
-    color: #ff5fb7;
-    text-shadow: 0 6px 30px rgba(255,95,183,0.32);
-  }
-  .hero-desc {
-    font-size: 16px;
-    color: rgba(233,238,245,0.65);
-    max-width: 580px;
-    margin-bottom: 26px;
-  }
-  .actions {
-    display: flex;
-    gap: 14px;
-    margin-bottom: 18px;
-  }
-  .muted-feat {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    font-size: 13px;
-    color: #9aa3a8;
-    margin-top: 18px;
-  }
-  .dot {
-    width: 8px;
-    height: 8px;
-    background: #28d06b;
-    border-radius: 50%;
-  }
+  <style>
+    :root {
+      --bg-color: #000;
+      --card-bg-opacity: 0.09;
+      --card-bg-color: 20,20,20;
+      --card-border-color: 255,255,255;
+      --card-border-width: 1.5px;
+      --card-border-opacity: 0.06;
+      --accent-color: #e9e9ff;
+      --muted-color: rgba(255,255,255,0.5);
+      --bio-color: rgba(255,255,255,0.65);
+      --glass-blur: 6px;
+      --card-radius: 16px;
+      --container-max-w: 650px;
+      --profile-padding: 18px;
+      --pfp-size: 78px;
+    }
 
-  /* Profile Card */
-  .card {
-    width: 460px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 22px;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
-    padding: 22px;
-    position: relative;
-  }
-  .card-top {
-    height: 110px;
-    border-radius: 14px;
-    background: linear-gradient(180deg, rgba(67,8,33,0.95), rgba(55,3,41,0.9));
-    margin: -2px -2px 18px -2px;
-  }
-  .avatar {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    border: 8px solid rgba(0,0,0,0.45);
-    overflow: hidden;
-    margin: -54px auto 6px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
-  }
-  .avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .username {
-    text-align: center;
-    font-weight: 700;
-    font-size: 20px;
-    margin-top: 10px;
-  }
-  .badges {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin: 10px 0;
-  }
-  .badge {
-    padding: 0 8px;
-    height: 28px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.04);
-    border-radius: 999px;
-    display: flex;
-    align-items: center;
-    font-size: 13px;
-  }
-  .profile-desc {
-    text-align: center;
-    font-weight: 600;
-    margin-top: 8px;
-  }
-  .profile-meta {
-    text-align: center;
-    font-size: 13px;
-    color: #9aa3a8;
-    margin-top: 6px;
-  }
-  .presence {
-    margin-top: 16px;
-    display: flex;
-    justify-content: center;
-  }
-  .presence-card {
-    display: flex;
-    gap: 12px;
-    padding: 10px 14px;
-    background: rgba(255,255,255,0.01);
-    border: 1px solid rgba(255,255,255,0.03);
-    border-radius: 12px;
-    min-width: 240px;
-    max-width: 320px;
-  }
-  .game-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .social-rows {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    margin-top: 18px;
-  }
-  .social-rows img {
-    width: 30px;
-    height: 30px;
-  }
-</style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: 'Inter', system-ui;
+      background: var(--bg-color);
+      color: #fff;
+    }
+
+    .wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
+    }
+
+    .profile-section {
+      width: 100%;
+      max-width: var(--container-max-w);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: var(--profile-padding);
+      border-radius: var(--card-radius);
+      background: rgba(var(--card-bg-color), var(--card-bg-opacity));
+      backdrop-filter: blur(var(--glass-blur));
+      border: var(--card-border-width) solid rgba(var(--card-border-color), var(--card-border-opacity));
+      box-sizing: border-box;
+    }
+
+    .profile-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .pfp-wrap {
+      width: var(--pfp-size);
+      height: var(--pfp-size);
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .pfp-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .name-and-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .display-name {
+      font-weight: 700;
+      font-size: 26px;
+      margin: 0;
+      color: var(--accent-color);
+    }
+
+    .badges {
+      display: flex;
+      gap: 3px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .badge {
+      width: 22px;
+      height: 22px;
+      display: inline-grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .badge img {
+      width: 16px;
+      height: 16px;
+    }
+
+    .bio {
+      color: var(--bio-color);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .socials {
+      display: flex;
+      gap: 3px;
+      justify-content: center;
+    }
+
+    .social {
+      width: 48px;
+      height: 48px;
+      display: inline-grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .social img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .badge[data-tooltip]:hover::after,
+    .social[data-tooltip]:hover::after {
+      opacity: 1;
+      transform: translate(-50%, -6px) scale(1);
+    }
+
+    .badge::after,
+    .social::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translate(-50%, 0) scale(.98);
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      font-size: 12px;
+      padding: 6px 9px;
+      border-radius: 8px;
+      opacity: 0;
+      transition: all .18s ease;
+      white-space: nowrap;
+      margin-bottom: 6px;
+    }
+
+    .badge::before,
+    .social::before {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top: none;
+      border-bottom-color: rgba(0, 0, 0, 0.75);
+      opacity: 0;
+    }
+
+    .badge[data-tooltip]:hover::before,
+    .social[data-tooltip]:hover::before {
+      opacity: 1;
+    }
+
+    .player {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: calc(var(--container-max-w) - 0px);
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: rgba(var(--card-bg-color), var(--card-bg-opacity));
+      border: var(--card-border-width) solid rgba(var(--card-border-color), var(--card-border-opacity));
+      backdrop-filter: blur(calc(var(--glass-blur) - 2px));
+      box-sizing: border-box;
+    }
+
+    .album {
+      width: 58px;
+      height: 58px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex: 0 0 58px;
+    }
+
+    .album img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .player-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .song-title {
+      font-weight: 600;
+      color: var(--accent-color);
+      font-size: 14px;
+    }
+
+    .song-artist {
+      font-size: 13px;
+      color: var(--muted-color);
+    }
+
+    .seekbar {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .seek {
+      position: relative;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 999px;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .seek > .progress,
+    .volume .seek > .progress {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0%;
+      background: var(--accent-color);
+      border-radius: 999px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .seek input[type=range],
+    .volume input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      margin: 0;
+      cursor: pointer;
+      z-index: 2; /* increased */
+      position: relative;
+      pointer-events: all; /* ensure it's interactive */
+    }
+
+    .seek input[type=range]::-webkit-slider-thumb,
+    .volume input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      border: 2px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .time {
+      min-width: 82px;
+      text-align: right;
+      font-size: 13px;
+      color: var(--muted-color);
+    }
+
+    .volume {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      width: 120px;
+    }
+
+    .volume .seek {
+      flex: 1;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .controls button {
+      background: none;
+      border: none;
+      color: var(--accent-color);
+      cursor: pointer;
+      padding: 0;
+      position: relative;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .controls button::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      transition: background 0.3s ease;
+      z-index: 0;
+    }
+
+    .controls button:hover::before {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .controls svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--accent-color);
+      position: relative;
+      z-index: 1;
+    }
+  </style>
 </head>
 <body>
-<div class="page">
-  <header>
-    <div class="brand">
-      <img src="assets/logo.png" alt="logo">
-      <h1>haunt.gg</h1>
-    </div>
-    <nav>
-      <a href="#">Discord</a>
-      <a href="#">Leaderboard</a>
-      <a href="#">Help Center</a>
-      <a href="#">Pricing</a>
-      <a href="#">Team</a>
-    </nav>
-    <div class="cta">
-      <button class="btn ghost">Login</button>
-      <button class="btn primary">Sign Up</button>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="hero-text">
-      <div class="kicker">Your Digital</div>
-      <h2 class="hero-title">Your Digital <span>Identity,</span><br> On Your Terms</h2>
-      <p class="hero-desc">
-        Create a stunning biolink page that represents your personal brand. Share all your content in one beautiful, customizable location.
-      </p>
-      <div class="actions">
-        <button class="btn primary">Claim Username</button>
-        <button class="btn ghost">Explore Features</button>
-      </div>
-      <div class="muted-feat">
-        <span class="dot"></span>
-        100% Free To Get Started • No Credit Card Required
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-top"></div>
-      <div class="avatar">
-        <img src="assets/pfp.png" alt="pfp">
-      </div>
-      <div class="username">haunt</div>
-      <div class="badges">
-        <div class="badge">⚒️</div>
-        <div class="badge">⭐</div>
-        <div class="badge">✅</div>
-        <div class="badge">💰</div>
-        <div class="badge">🎗️</div>
-        <div class="badge">🔥</div>
-      </div>
-      <div class="profile-desc">Web developer &amp; designer based in Austria.</div>
-      <div class="profile-meta">📍 Vienna, Austria</div>
-      <div class="presence">
-        <div class="presence-card">
-          <div class="game-icon">
-            <img src="assets/play.png" alt="play" style="width:100%;height:100%;">
-          </div>
+  <div class="wrap">
+    <div class="profile-section">
+      <div class="profile-card">
+        <div class="profile-top">
+          <div class="pfp-wrap"><img src="pfp.png" alt="@zc profile"></div>
           <div>
-            <div style="font-weight:700">haunt.gg#1344 <span style="font-size:11px;color:#9aa3a8;margin-left:6px">· haunt</span></div>
-            <div style="font-size:12px;color:#9aa3a8">Playing Valorant · Competitive - Haven</div>
+            <div class="name-and-badges">
+              <h1 class="display-name">@zc</h1>
+              <div class="badges">
+                <div class="badge" data-tooltip="Owner"><img src="owner.png" alt=""></div>
+                <div class="badge" data-tooltip="Developer"><img src="dev.png" alt=""></div>
+                <div class="badge" data-tooltip="Artist"><img src="artist.png" alt=""></div>
+                <div class="badge" data-tooltip="Premium"><img src="premium.png" alt=""></div>
+                <div class="badge" data-tooltip="Bug Hunter"><img src="bug.png" alt=""></div>
+                <div class="badge" data-tooltip="Verified"><img src="verified.png" alt=""></div>
+              </div>
+            </div>
+            <p class="bio">disc @flattener</p>
           </div>
         </div>
+        <div class="socials">
+          <a href="https://last.fm/user/crsttt" target="_blank" rel="noopener" class="social" data-tooltip="Last.fm"><img src="lastfm.png" alt=""></a>
+          <a href="https://instagram.com/zccmu" target="_blank" rel="noopener" class="social" data-tooltip="Instagram"><img src="instagram.png" alt=""></a>
+        </div>
       </div>
-      <div class="social-rows">
-        <img src="assets/github.png" alt="">
-        <img src="assets/discord.png" alt="">
-        <img src="assets/x.png" alt="">
-        <img src="assets/iglogo.png" alt="">
+
+      <div class="player">
+        <div class="album">
+          <img src="monsoons.png" id="album-art" alt="">
+        </div>
+        <div class="controls">
+          <button id="playPause"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+        </div>
+        <div class="player-meta">
+          <div>
+            <div class="song-title" id="song-title">Orb</div>
+            <div class="song-artist" id="song-artist">Khan</div>
+          </div>
+          <div class="seekbar">
+            <div class="seek">
+              <div class="progress" id="progress"></div>
+              <input id="seekRange" type="range" min="0" max="100" value="0" />
+            </div>
+            <div class="time" id="timeDisplay">0:00 / 0:00</div>
+            <div class="volume">
+              <div class="seek">
+                <div class="progress" id="volProgress" style="width:80%;"></div>
+                <input id="vol" type="range" min="0" max="1" step="0.01" value="0.8" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <audio id="audio" src="orb-khan.mp3" preload="metadata"></audio>
       </div>
     </div>
-  </section>
-</div>
+  </div>
+
+<script>
+  const audio = document.getElementById('audio');
+  const seekRange = document.getElementById('seekRange');
+  const progress = document.getElementById('progress');
+  const timeDisplay = document.getElementById('timeDisplay');
+  const vol = document.getElementById('vol');
+  const volProgress = document.getElementById('volProgress');
+  const playPauseBtn = document.getElementById('playPause');
+
+  let isSeeking = false;
+
+  // Format seconds to M:SS
+  function formatTime(seconds) {
+    if (!isFinite(seconds)) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  // Update time and progress bar as audio plays (only if NOT seeking)
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration && !isSeeking) {
+      const pct = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = `${pct}%`;
+      seekRange.value = pct;
+      timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+    }
+  });
+
+  // Initialize time display when metadata is loaded
+  audio.addEventListener('loadedmetadata', () => {
+    timeDisplay.textContent = `0:00 / ${formatTime(audio.duration)}`;
+    seekRange.value = 0;
+    progress.style.width = '0%';
+  });
+
+  // Pointer events for better drag detection (works for mouse & touch)
+  seekRange.addEventListener('pointerdown', () => {
+    isSeeking = true;
+  });
+
+  seekRange.addEventListener('pointerup', (e) => {
+    isSeeking = false;
+    // Set audio currentTime immediately on drag end
+    if (audio.duration) {
+      const pct = e.target.value;
+      audio.currentTime = (pct / 100) * audio.duration;
+    }
+  });
+
+  // When user drags the slider, update progress bar AND audio.currentTime immediately
+  seekRange.addEventListener('input', (e) => {
+    if (audio.duration) {
+      const pct = e.target.value;
+      progress.style.width = `${pct}%`;
+      audio.currentTime = (pct / 100) * audio.duration;
+      timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+    }
+  });
+
+  // Volume control
+  vol.addEventListener('input', e => {
+    audio.volume = e.target.value;
+    volProgress.style.width = (e.target.value * 100) + '%';
+  });
+
+  // Play/pause toggle
+  playPauseBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      playPauseBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>'; // Pause icon
+    } else {
+      audio.pause();
+      playPauseBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>'; // Play icon
+    }
+  });
+
+  // Reset play/pause button when audio ends
+  audio.addEventListener('ended', () => {
+    playPauseBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>'; // Play icon
+    seekRange.value = 0;
+    progress.style.width = '0%';
+    timeDisplay.textContent = `0:00 / ${formatTime(audio.duration)}`;
+  });
+
+  // Set initial volume UI and audio volume
+  audio.volume = vol.value;
+  volProgress.style.width = (vol.value * 100) + '%';
+</script>
 </body>
 </html>
